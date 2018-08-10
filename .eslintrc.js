@@ -26,6 +26,8 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     //allow semi-colon at the end of statement
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    //allow indent space
+    "indent": 0
   }
 }
