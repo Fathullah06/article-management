@@ -17,7 +17,10 @@ export default {
   name: 'App',
   components: {
     appHeader: Header
-  }
+  },
+  created () {
+        this.$router.push({path: '/'});
+    }
 };
 </script>
 

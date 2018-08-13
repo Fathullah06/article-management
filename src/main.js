@@ -6,6 +6,7 @@ import axios from 'axios';
 import VeeValidate from 'vee-validate';
 import App from './App';
 import { routes } from './routes';
+import store from '../src/store/store';
 
 Vue.config.productionTip = false;
 Vue.use(Router);
@@ -25,6 +26,7 @@ router.beforeEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
     App
   },

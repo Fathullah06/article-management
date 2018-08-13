@@ -39,25 +39,15 @@ export default {
       let vm = this;
       login({ userName: this.username, password: this.password })
         .then(res => {
-          debugger;
           if (res.data.messageCode === "LOGGED IN SUCCESSFULLY") {
             vm.token = res.data.data.token;
+            vm.$store.dispatch("setToken", { token: vm.token });
             vm.$router.push({ path: "/dashboard" });
           }
         })
         .catch(err => {
-          debugger;
           console.error(err);
         });
-      // axios.defaults.headers.post['Content-Type'] = 'application/json' http://172.16.3.104/user/loginAD;
-      /* axios.post('http://172.16.3.104:3000/user/loginAD', {userName: this.username, password: this.password})
-            .then(res => {
-                debugger;
-            })
-            .catch(err => {
-                debugger;
-                console.error(err);
-            }); */
     }
   }
 };

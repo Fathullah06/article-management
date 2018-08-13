@@ -7,14 +7,15 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <router-link to="/dashboard" activeClass="active" tag="li"><a>Dashboard</a></router-link>
-                    <router-link to="/createArticle" activeClass="active" tag="li"><a>Create</a></router-link>
-                    <router-link to="/createdArticles" activeClass="active" tag="li"><a>Articles</a></router-link>
-                    <router-link to="/articlesList" activeClass="active" tag="li"><a>Articles List</a></router-link>
-                    <router-link to="/usersList" activeClass="active" tag="li"><a>Users List</a></router-link>
+                    <router-link v-if="loggedIn" to="/dashboard" activeClass="active" tag="li"><a>Dashboard</a></router-link>
+                    <router-link v-if="loggedIn" to="/createArticle" activeClass="active" tag="li"><a>Create</a></router-link>
+                    <router-link v-if="loggedIn" to="/createdArticles" activeClass="active" tag="li"><a>Articles</a></router-link>
+                    <router-link v-if="loggedIn" to="/articlesList" activeClass="active" tag="li"><a>Articles List</a></router-link>
+                    <router-link v-if="loggedIn" to="/usersList" activeClass="active" tag="li"><a>Users List</a></router-link>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <router-link to="/login" activeClass="active" tag="li"><a>Login</a></router-link>
+                    <li activeClass="active" v-if="!loggedIn"><a @click="login" style="cursor: pointer">Login</a></li>
+                    <li activeClass="active" v-if="loggedIn"><a @click="logout" style="cursor: pointer">Logout</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -23,17 +24,18 @@
 
 <script>
     export default {
-        data () {
-            return {
-                loggedIn: true
-            };
-        },
         methods: {
             login () {
-
+                this.$router.push({path: 'login'});
             },
             logout () {
-
+                this.$store.dispatch('setToken', {token: ''});
+                this.$router.push({path: 'login'});
+            }
+        },
+        computed: {
+            loggedIn () {
+                return this.$store.getters.getToken !== '';
             }
         }
     };
