@@ -18,34 +18,34 @@ export default {
     return {
       data1: {
         userName: "dhruti.upadhyay",
-        password: "rdKU#937"
+        password: "dhruti"
       },
       usersName:['aa','bb','cc','dd']
     };
   },
-  created() {
-    axios
-      .post(`http://172.16.3.104:3000/user/loginAD`, {
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.data1)
-      })
-      .then(res => res.json())
-      .then(json => {
-        this.state.token = json.token;
-        this.state.success = json.success;
-        console.log(json.success);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-    // axios.post(`http://jsonplaceholder.typicode.com/posts`, {
-    //   body: "fdgjkldfg"
-    // })
-    // .then(response => {console.log(response)})
-    // .catch(e => {
-    //   console.log(e)
-    // })
-  },
+  // created() {
+  //   axios
+  //     .post(`http://172.16.3.104:3000/user/loginAD`, {
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(this.data1)
+  //     })
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       this.state.token = json.token;
+  //       this.state.success = json.success;
+  //       console.log(json.success);
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  //   // axios.post(`http://jsonplaceholder.typicode.com/posts`, {
+  //   //   body: "fdgjkldfg"
+  //   // })
+  //   // .then(response => {console.log(response)})
+  //   // .catch(e => {
+  //   //   console.log(e)
+  //   // })
+  // },
   components: {
     appSwitchComponent: SwitchComponent
   }
