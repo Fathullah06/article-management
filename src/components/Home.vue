@@ -20,7 +20,7 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
-import axios from "axios";
+import axios from 'axios';
 export default {
   data() {
     return {

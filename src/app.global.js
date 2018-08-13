@@ -1,7 +1,8 @@
 export let GLOBAL = {};
 
-GLOBAL['BASE_URL'] = 'http://172.16.5.152:100/api/';
+GLOBAL['BASE_URL'] = 'http://172.16.3.104:3000';
 GLOBAL['HTTP_METHOD_GET'] = 'GET';
 GLOBAL['HTTP_METHOD_POST'] = 'POST';
 GLOBAL['HTTP_METHOD_PUT'] = 'PUT';
 
+GLOBAL['SIGN_IN_URL'] = GLOBAL['BASE_URL'] + '/user/loginAD';
