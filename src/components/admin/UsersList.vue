@@ -3,7 +3,7 @@
     <h1>Users List (Admin)</h1>
     <ul class="list-group"  v-if="usersName.length!=0" v-for="(userName,i) in usersName" :key="i">
       <li class="list-group-item">
-        <app-switch-component v-if="true" :id="i" :name="userName"></app-switch-component>
+        <app-switch-component v-if="true" :id="i" :name="userName" :role="'(role)'"></app-switch-component>
       </li>
     </ul>
   </div>
@@ -20,7 +20,7 @@ export default {
         userName: "dhruti.upadhyay",
         password: "dhruti"
       },
-      usersName:['aa','bb','cc','dd']
+      usersName:['aa','bb','cc','dd'],
     };
   },
   // created() {
