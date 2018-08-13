@@ -33,8 +33,8 @@
             <form @submit.prevent="sendComment">
                 <label>
                     Comment
-                    <textarea v-model="comment" cols="30" rows="1"></textarea>
                 </label>
+                <textarea v-model="comment" cols="30" rows="1"></textarea>
                 <button :disabled="!comment" type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
