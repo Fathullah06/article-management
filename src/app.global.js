@@ -1,0 +1,7 @@
+export let GLOBAL = {};
+
+GLOBAL['BASE_URL'] = 'http://172.16.5.152:100/api/';
+GLOBAL['HTTP_METHOD_GET'] = 'GET';
+GLOBAL['HTTP_METHOD_POST'] = 'POST';
+GLOBAL['HTTP_METHOD_PUT'] = 'PUT';
+

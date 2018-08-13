@@ -19,13 +19,13 @@
 
 <script>
 /* eslint-disable */
-import ArticlesListShared from "./shared/ArticlesListShared.vue";
+import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
 import axios from "axios";
 export default {
   data() {
     return {
       articles: [],
-      errors: []
+      homeErrors: []
     };
   },
 
@@ -36,7 +36,7 @@ export default {
         this.articles = response.data;
       })
       .catch(e => {
-        this.errors.push(e);
+        this.homeErrors.push(e);
         console.log(e);
       });
   },
