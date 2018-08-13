@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Home Page</h1>
         <div v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
             <app-articles-list-shared
                 :article="article"
