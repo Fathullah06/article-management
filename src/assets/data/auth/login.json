@@ -1,0 +1,7 @@
+{
+    "MessageCode": "USER_LOGGED_IN",
+    "Message": "Logged in successfully!",
+    "Data": {
+      "Token": "gfdgfdg894jkfdsf94klfdsfa"
+    }
+  }
