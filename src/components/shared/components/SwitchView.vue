@@ -1,5 +1,6 @@
 <template>
     <div class="navbar-right">
+      <b v-if="role" style="margin: 10px 20px;">{{role}}</b>
         <div
         id="on"
         @click="switched(true)"
@@ -17,7 +18,7 @@
 <script>
 /* eslint-disable */
 export default {
-  props: ["value", "id"],
+  props: ["value", "id","role"],
   methods: {
     switched(isOn) {
       this.$emit("input", isOn);

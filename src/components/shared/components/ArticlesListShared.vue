@@ -9,9 +9,10 @@
             </div>
             <div class="panel-footer">
                 <app-three-button-shared v-if="threeButtonFlag" :id="id"></app-three-button-shared>
-                <!-- <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component> -->
+                <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component>
+                <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
-            <div class="panel-footer">
+            <div v-if="!switchComponentFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
                 <p class="list-group-item">{{article.title}}</p>
                 <p class="list-group-item">{{article.title}}</p>
@@ -25,14 +26,21 @@
 <script>
 /* eslint-disable */
 import ThreeButtonShared from "./ThreeButtonShared.vue"
+import SwitchComponent from './SwitchComponent.vue';
+import TwoButtonShared from './TwoButtonShared';
 export default {
   props: [
     "article",
     "id",
-    "threeButtonFlag"
+    "threeButtonFlag",
+    "twoButtonFlag",
+    "switchComponentFlag",
+    "switchLabel"
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,
+    appSwitchComponent:SwitchComponent,
+    appTwoButtonShared:TwoButtonShared
   }
 };
 </script>

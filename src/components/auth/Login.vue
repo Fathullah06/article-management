@@ -24,34 +24,34 @@
 </template>
 
 <script>
-import { login } from '../shared/services/app.services';
+/* eslint-disable */
+import { login } from "../shared/services/app.services";
 export default {
-    data () {
-        return {
-            username: '',
-            password: '',
-            token: ''
-        };
-    },
-    methods: {
-        submit () {
-            let vm = this;
-            login({userName: this.username, password: this.password})
-            .then(res => {
-                if (res.data.messageCode === 'LOGGED IN SUCCESSFULLY') {
-                    vm.token = res.data.data.token;
-                    vm.$store.dispatch('setToken', {token: vm.token});
-                    vm.$router.push({path: '/dashboard'});
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
-        }
+  data() {
+    return {
+      username: "",
+      password: "",
+      token: ""
+    };
+  },
+  methods: {
+    submit() {
+      let vm = this;
+      login({ userName: this.username, password: this.password })
+        .then(res => {
+          if (res.data.messageCode === "LOGGED IN SUCCESSFULLY") {
+            vm.token = res.data.data.token;
+            vm.$store.dispatch("setToken", { token: vm.token });
+            vm.$router.push({ path: "/dashboard" });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
+  }
 };
 </script>
 
 <style>
-
 </style>

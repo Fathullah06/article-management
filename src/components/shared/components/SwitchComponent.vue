@@ -1,7 +1,7 @@
 <template>
       <div class="nav nav-pills">
         <p class="navbar-left">{{name}}</p>
-        <form-switch v-model="dataSwitch" :id="id"></form-switch>
+        <form-switch v-model="dataSwitch" :id="id" :role="role"></form-switch>
       </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   components: {
     formSwitch: SwitchView
   },
-  props: ["id", "name"]
+  props: ["id", "name","role"]
 };
 </script>
 
