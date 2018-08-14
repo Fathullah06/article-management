@@ -6,3 +6,4 @@ GLOBAL['HTTP_METHOD_POST'] = 'POST';
 GLOBAL['HTTP_METHOD_PUT'] = 'PUT';
 
 GLOBAL['SIGN_IN_URL'] = GLOBAL['BASE_URL'] + '/user/loginAD';
+GLOBAL['CREATE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/createArticle';

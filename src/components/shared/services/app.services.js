@@ -5,4 +5,11 @@ function login (data) {
   return axios.post(GLOBAL['SIGN_IN_URL'], data);
 }
 
-export { login };
+function createArticle (data) {
+  return axios.post(GLOBAL['CREATE_ARTICLE'], data);
+}
+
+export {
+  login,
+  createArticle
+ };

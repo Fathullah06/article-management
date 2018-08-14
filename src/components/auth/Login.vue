@@ -38,7 +38,7 @@ export default {
       let vm = this;
       login({ userName: this.username, password: this.password })
         .then(res => {
-          if (res.data.messageCode === "LOGGED IN SUCCESSFULLY") {
+          if (res.data.messageCode === "LOGGED_IN_SUCCESSFULLY") {
             vm.$store.dispatch("setToken", { token: res.data.data.token });
             vm.$store.dispatch('setRole', {role: res.data.data.role});
             vm.$cookie.set('token', res.data.data.token);
