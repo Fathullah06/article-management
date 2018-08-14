@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="nav nav-pills nav-right"> 
+        <ul class="nav nav-pills nav-right">
             <li @click="delete1">
               <span id="delete"
                 v-bind:class="{ active: deleteFlag }"

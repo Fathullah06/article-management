@@ -15,12 +15,18 @@ export const mutations = {
 export const actions = {
     setToken ({commit}, token) {
         commit('SET_TOKEN', token);
+    },
+    setRole ({commit}, role) {
+        commit('SET_ROLE', role);
     }
 };
 
 export const getters = {
     getToken (state) {
         return state.token;
+    },
+    getRole (state) {
+        return state.role;
     }
 };
 

@@ -31,14 +31,14 @@
                         </div>
                         <div class="col-md-4">
                             <b>
-                                <md-radio v-model="radio" value="private">Private</md-radio>
-                                <md-radio v-model="radio" value="public">Public</md-radio>
+                                <md-radio v-model="article.isPublic" value="private">Private</md-radio>
+                                <md-radio v-model="article.isPublic" value="public">Public</md-radio>
                             </b>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button :disabled="validate || errors.any()" class="btn btn-success" type="button" @click="submit">
+                    <button :disabled="validate || errors.any() || (!article.isPublic)" class="btn btn-success" type="button" @click="submit">
                         Publish
                     </button>
                 </div>
@@ -53,15 +53,13 @@ export default {
     data () {
         let article = new Article();
         return {
-            article,
-            radio: false
+            article
         };
     },
     methods: {
         saveDraft () {
             console.log('Save and make api call for draft');
             this.article.isPublic = false;
-            this.article.isPrivate = false;
             this.article.isDraft = true;
             console.log(this.article);
         },

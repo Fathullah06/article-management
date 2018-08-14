@@ -5,5 +5,4 @@ export class Article {
     tags = [];
     isDraft = false;
     isPublic = false;
-    isPrivate = false;
 }
