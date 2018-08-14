@@ -36,7 +36,7 @@ export const routes = [{
     component: Dashboard
   },
   {
-    path: '/viewArticle',
+    path: '/viewArticle/:id',
     component: ViewArticle
   }
 ];

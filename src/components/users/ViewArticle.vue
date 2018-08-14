@@ -3,7 +3,7 @@
         <div >
             <app-articles-list-shared
                 :article="article"
-                :id='article.id'
+                :id="article.article._id"
                 :threeButtonFlag="true"
                 :twoButtonFlag="true"
                 :switchComponentFlag="false"
@@ -21,10 +21,12 @@ export default {
     data () {
         return {
             article: {
-                userId: 1,
-                id: 1,
-                title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-                body: 'quia et suscipit\nsuscipit recuolestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+                    article: {
+                    articleName: 'Article Title1',
+                    description: 'This is Article Body1',
+                    comments: [],
+                    _id: 0
+                }
             }
         };
     },
