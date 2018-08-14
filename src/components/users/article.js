@@ -1,8 +1,8 @@
 export class Article {
     articleId = 0;
-    name = '';
+    articleName = '';
     description = '';
-    tags = [];
+    tag = [];
     isDraft = false;
     isPublic = false;
 }

@@ -11,4 +11,12 @@ function home(data) {
   return axios.get(GLOBAL['DISPLAY_ALL_ARTICLES_URL'], data);
 }
 
-export { login, home };
+function createArticle(data) {
+  return axios.post(GLOBAL['CREATE_ARTICLE'], data);
+}
+
+export {
+  home,
+  login,
+  createArticle
+};

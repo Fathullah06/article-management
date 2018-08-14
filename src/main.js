@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import VueMaterial from 'vue-material';
 import VeeValidate from 'vee-validate';
+import axios from 'axios';
 import VueCookie from 'vue-cookie';
 import App from './App';
 import { routes } from './routes';
@@ -16,6 +17,8 @@ Vue.use(Router);
 Vue.use(VeeValidate);
 Vue.use(VueMaterial);
 Vue.use(VueCookie);
+
+axios.defaults.headers.common['Authorization'] = VueCookie.get('token');
 
 const router = new Router({
   mode: 'history',

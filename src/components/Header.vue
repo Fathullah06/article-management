@@ -38,12 +38,12 @@
                 this.$store.dispatch('setRole', {role: ''});
                 this.$cookie.delete('token');
                 this.$cookie.delete('role');
+                this.isAdmin = false;
                 this.$router.push({path: 'login'});
             }
         },
         computed: {
             loggedIn () {
-                // debugger;
                 if (this.$store.getters.getToken !== '' || this.$cookie.get('token')) {
                     return true;
                 } else {
