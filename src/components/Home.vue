@@ -20,7 +20,8 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
-import axios from 'axios';
+// import axios from 'axios';
+import { home } from "./shared/services/app.services";
 export default {
   data() {
     return {
@@ -30,14 +31,13 @@ export default {
   },
 
   created() {
-    axios
-      .get(`http://jsonplaceholder.typicode.com/posts`)
-      .then(response => {
-        this.articles = response.data;
+    home()
+      .then(res => {
+        this.articles = res.data.articles;
+        console.log(this.articles);
       })
-      .catch(e => {
-        this.homeErrors.push(e);
-        console.log(e);
+      .catch(err => {
+        console.error(err);
       });
   },
   components: {

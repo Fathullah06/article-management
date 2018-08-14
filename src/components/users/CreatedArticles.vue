@@ -19,29 +19,43 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
       articles: [
-        { title: "Article Title1", body: "This is Article Body1" },
-        { title: "Article Title2", body: "This is Article Body2" }
+        {
+          article: {
+            articleName: "Article Title1",
+            description: "This is Article Body1",
+            comments: [],
+            _id: 0
+          }
+        },
+        {
+          article: {
+            articleName: "Article Title2",
+            description: "This is Article Body2",
+            comments: [],
+            _id: 1
+          }
+        }
       ],
       homeErrors: []
     };
   },
 
-//   created() {
-//     axios
-//       .get(`http://jsonplaceholder.typicode.com/posts`)
-//       .then(response => {
-//         this.articles = response.data;
-//       })
-//       .catch(e => {
-//         this.homeErrors.push(e);
-//         console.log(e);
-//       });
-//   },
+  //   created() {
+  //     axios
+  //       .get(`http://jsonplaceholder.typicode.com/posts`)
+  //       .then(response => {
+  //         this.articles = response.data;
+  //       })
+  //       .catch(e => {
+  //         this.homeErrors.push(e);
+  //         console.log(e);
+  //       });
+  //   },
   components: {
     appArticlesListShared: ArticlesListShared
   }
@@ -49,5 +63,4 @@ export default {
 </script>
 
 <style>
-
 </style>
