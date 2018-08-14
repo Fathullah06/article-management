@@ -2,16 +2,16 @@
     <div class="navbar-right">
       <b v-if="role" style="margin: 10px 20px;">{{role}}</b>
         <div
-        id="on"
-        @click="switched(true)"
-        :class="{active:value}">
-            Enable
+          id="unblock"
+          @click="switched(false)"
+          :class="{active:!value}">
+            Unblock
         </div>
         <div
-        id="off"
-        @click="switched(false)"
-        :class="{active:!value}">
-            Disable
+          id="block"
+          @click="switched(true)"
+          :class="{active:value}">
+            Block
         </div>
     </div>
 </template>
@@ -28,8 +28,8 @@ export default {
 };
 </script>
 <style scoped>
-#on,
-#off {
+#block,
+#unblock {
   width: 60px;
   height: 20px;
   background-color: lightgray;
@@ -42,12 +42,16 @@ export default {
   /* margin-left: 20px; */
   margin-right: 20px;
 }
-#on:hover,
-#on.active {
+#unblock:hover,
+#unblock.active {
   background-color: lightgreen;
 }
-#off:hover,
-#off.active {
+#block:hover,
+#block.active {
   background-color: lightcoral;
+}
+#unblock.active,
+#block.active{
+  cursor: not-allowed;
 }
 </style>

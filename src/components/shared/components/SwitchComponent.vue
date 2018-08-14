@@ -11,7 +11,7 @@ import SwitchView from "./SwitchView.vue";
 export default {
   data() {
     return {
-      dataSwitch: true
+      dataSwitch: false
     };
   },
   components: {
