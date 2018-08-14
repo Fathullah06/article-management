@@ -53,5 +53,7 @@ export default {
 #unblock.active,
 #block.active{
   cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.8;
 }
 </style>

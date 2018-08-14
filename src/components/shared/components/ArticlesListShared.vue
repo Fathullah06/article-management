@@ -2,10 +2,10 @@
     <div class="col-sm-12 col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">{{article.title}}</h3>
+                <h3 class="panel-title">{{article.article.articleName}}</h3>
             </div>
             <div class="panel-body">
-                {{article.body}}
+                {{article.article.description}}
             </div>
             <div class="panel-footer">
                 <app-three-button-shared v-if="threeButtonFlag" :id="id"></app-three-button-shared>
@@ -14,10 +14,12 @@
             </div>
             <div v-if="commentsFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
-                <p class="list-group-item">{{article.title}}</p>
-                <p class="list-group-item">{{article.title}}</p>
-                <p class="list-group-item">{{article.title}}</p>
-                <p class="list-group-item">{{article.title}}</p>
+                <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
+                    <p class="list-group-item">{{comment}}</p>
+                </div>
+                <div v-if="comments.length==0">
+                    <p class="list-group-item">No comments...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -25,13 +27,21 @@
 
 <script>
 /* eslint-disable */
-import ThreeButtonShared from "./ThreeButtonShared.vue"
-import SwitchComponent from './SwitchComponent.vue';
-import TwoButtonShared from './TwoButtonShared';
+import ThreeButtonShared from "./ThreeButtonShared.vue";
+import SwitchComponent from "./SwitchComponent.vue";
+import TwoButtonShared from "./TwoButtonShared";
 export default {
+  data() {
+    return {
+      id: this.article.article._id,
+      comments: this.article.article.comments
+    };
+  },
+//   created() {
+//     console.log(this.comments.length);
+//   },
   props: [
     "article",
-    "id",
     "threeButtonFlag",
     "twoButtonFlag",
     "switchComponentFlag",
@@ -40,8 +50,8 @@ export default {
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,
-    appSwitchComponent:SwitchComponent,
-    appTwoButtonShared:TwoButtonShared
+    appSwitchComponent: SwitchComponent,
+    appTwoButtonShared: TwoButtonShared
   }
 };
 </script>
@@ -51,7 +61,7 @@ span {
   margin-left: 20px;
   margin-right: 20px;
 }
-abc{
-    padding: -10px;
+abc {
+  padding: -10px;
 }
 </style>
