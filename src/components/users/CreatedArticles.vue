@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div>
+          <app-advanced-search-shared :advancedSearchflag="true"></app-advanced-search-shared>
+        </div>
         <div v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
             <app-articles-list-shared
                 :article="article"
@@ -19,6 +22,7 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
+import AdvancedSearchShared from "../shared/components/AdvancedSearchShared.vue";
 import axios from "axios";
 export default {
   data() {
@@ -44,20 +48,9 @@ export default {
       homeErrors: []
     };
   },
-
-  //   created() {
-  //     axios
-  //       .get(`http://jsonplaceholder.typicode.com/posts`)
-  //       .then(response => {
-  //         this.articles = response.data;
-  //       })
-  //       .catch(e => {
-  //         this.homeErrors.push(e);
-  //         console.log(e);
-  //       });
-  //   },
   components: {
-    appArticlesListShared: ArticlesListShared
+    appArticlesListShared: ArticlesListShared,
+    appAdvancedSearchShared: AdvancedSearchShared
   }
 };
 </script>

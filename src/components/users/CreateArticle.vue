@@ -82,7 +82,7 @@ export default {
             createArticle(data)
             .then(res => {
                 if (res.data.message === 'SAVED_SUCCESSFULLY') {
-                    vm.router.push({path: '/'});
+                    vm.$router.push({path: '/'});
                 }
             })
             .catch(err => {

@@ -24,7 +24,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">My Unapproved Articles</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">My Blocked Articles</a>
                 </h4>
             </div>
             <div id="collapse2" class="panel-collapse collapse">
@@ -38,7 +38,7 @@
                     </app-articles-list-shared>
                 </div>
                 <div class="panel-footer">
-                    Total number of Unapproved Articles:{{articles.length}}
+                    Total number of Blocked Articles:{{articles.length}}
                 </div>
             </div>
         </div>

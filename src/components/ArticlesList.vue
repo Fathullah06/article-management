@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div>
+          <app-advanced-search-shared :advancedSearchflag="true"></app-advanced-search-shared>
+        </div>
         <div v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
             <app-articles-list-shared
                 :article="article"
@@ -20,6 +23,7 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
+import AdvancedSearchShared from "./shared/components/AdvancedSearchShared.vue";
 export default {
   data() {
     return {
@@ -45,7 +49,8 @@ export default {
     };
   },
   components: {
-    appArticlesListShared: ArticlesListShared
+    appArticlesListShared: ArticlesListShared,
+    appAdvancedSearchShared: AdvancedSearchShared
   }
 };
 </script>
