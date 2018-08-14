@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Router from 'vue-router';
-import axios from 'axios';
 import VeeValidate from 'vee-validate';
 import App from './App';
 import { routes } from './routes';
@@ -11,7 +10,6 @@ import store from '../src/store/store';
 Vue.config.productionTip = false;
 Vue.use(Router);
 Vue.use(VeeValidate);
-Vue.use(axios);
 
 const router = new Router({
   mode: 'history',

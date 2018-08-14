@@ -12,7 +12,7 @@
                 <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
-            <div v-if="!switchComponentFlag" class="panel-footer">
+            <div v-if="commentsFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
                 <p class="list-group-item">{{article.title}}</p>
                 <p class="list-group-item">{{article.title}}</p>
@@ -35,7 +35,8 @@ export default {
     "threeButtonFlag",
     "twoButtonFlag",
     "switchComponentFlag",
-    "switchLabel"
+    "switchLabel",
+    "commentsFlag"
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,

@@ -6,6 +6,7 @@
                 :id='i'
                 :threeButtonFlag="true"
                 :switchComponentFlag="false"
+                :commentsFlag="true"
                 :switchLabel="'Enable / Disable Article'">
             </app-articles-list-shared>
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->

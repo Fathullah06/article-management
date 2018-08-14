@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Users List (Admin)</h1>
     <ul class="list-group"  v-if="usersName.length!=0" v-for="(userName,i) in usersName" :key="i">
       <li class="list-group-item">
         <app-switch-component v-if="true" :id="i" :name="userName" :role="'(role)'"></app-switch-component>
@@ -16,10 +15,6 @@ import SwitchComponent from "../shared/components/SwitchComponent.vue";
 export default {
   data() {
     return {
-      data1: {
-        userName: "dhruti.upadhyay",
-        password: "dhruti"
-      },
       usersName:['aa','bb','cc','dd'],
     };
   },
