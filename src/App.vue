@@ -19,7 +19,9 @@ export default {
     appHeader: Header
   },
   created () {
+      if (!(this.$cookie.get('token'))) {
         this.$router.push({path: '/'});
+      }
     }
 };
 </script>
