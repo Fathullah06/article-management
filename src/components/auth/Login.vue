@@ -31,7 +31,6 @@ export default {
     return {
       username: "",
       password: "",
-      token: ""
     };
   },
   methods: {
@@ -40,8 +39,10 @@ export default {
       login({ userName: this.username, password: this.password })
         .then(res => {
           if (res.data.messageCode === "LOGGED IN SUCCESSFULLY") {
-            vm.token = res.data.data.token;
-            vm.$store.dispatch("setToken", { token: vm.token });
+            vm.$store.dispatch("setToken", { token: res.data.data.token });
+            vm.$store.dispatch('setRole', {role: res.data.data.role});
+            vm.$cookie.set('token', res.data.data.token);
+            vm.$cookie.set('role', res.data.data.role);
             vm.$router.push({ path: "/dashboard" });
           }
         })
