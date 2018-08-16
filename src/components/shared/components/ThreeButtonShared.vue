@@ -138,9 +138,9 @@ export default {
         id: this.id,
         comment: this.comment
       });
+      this.comments.push(this.comment);
       commentOnArticle(this.id, this.comment, this.$store.getters.getToken)
         .then(res => {
-          this.comments.push(this.comment);
           console.log(res.data);
         })
         .catch(err => {

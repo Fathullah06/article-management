@@ -35,9 +35,12 @@ function viewArticle(id) {
 }
 
 function deleteArticle(id) {
-  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id)
+  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id);
 }
 
+function userListBlock(id,data) {
+  return axios.patch(GLOBAL['USER_LIST_BLOCK'] + id, data);
+}
 
 export {
   home,
@@ -48,5 +51,6 @@ export {
   likeArticle,
   dislikeArticle,
   commentOnArticle,
-  getAllUsers
+  getAllUsers,
+  userListBlock
 }

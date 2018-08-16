@@ -2,7 +2,7 @@
   <div>
     <ul class="list-group"  v-if="adminUsers.length!=0" v-for="(adminUser,i) in adminUsers" :key="i">
       <li class="list-group-item">
-        <app-switch-component v-if="true" :id="i" :status="adminUser.adminUser.status" :name="adminUser.adminUser.adminUserName" :role="'(role)'"></app-switch-component>
+        <app-switch-component v-if="true" :id="adminUser.adminUser._id" :status="adminUser.adminUser.status" :name="adminUser.adminUser.adminUserName" :role="'(role)'"></app-switch-component>
       </li>
     </ul>
   </div>
@@ -23,7 +23,7 @@ export default {
     getAllUsers()
       .then(res => {
         this.adminUsers=res.data.adminUsers;
-        console.log(res.data.adminUsers);
+        // console.log(res.data.adminUsers);
       })
       .catch(err => {
         console.error(err);
