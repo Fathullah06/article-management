@@ -15,12 +15,20 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
-function likeArticle(id,data) {
-  return axios.get(GLOBAL['LIKE']+'/'+id, data);
+function likeArticle(id, data) {
+  return axios.get(GLOBAL['LIKE'] + id, data);
 }
 
-function dislikeArticle (id,data){
-  return axios.get(GLOBAL['DISLIKE']+'/'+id,data);
+function dislikeArticle(id, data) {
+  return axios.get(GLOBAL['DISLIKE'] + id, data);
+}
+
+function commentOnArticle(id, data) {
+  return axios.post(GLOBAL['COMMENT'] + id, data);
+}
+
+function getAllUsers(data){
+  return axios.get(GLOBAL['GET_ALL_USERS'],data);
 }
 
 export {
@@ -28,5 +36,7 @@ export {
   login,
   createArticle,
   likeArticle,
-  dislikeArticle
+  dislikeArticle,
+  commentOnArticle,
+  getAllUsers
 };

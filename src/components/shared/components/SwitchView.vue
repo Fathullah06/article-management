@@ -3,14 +3,14 @@
       <b v-if="role" style="margin: 10px 20px;">{{role}}</b>
         <div
           id="unblock"
-          @click="switched(false)"
-          :class="{active:!value}">
+          @click="switched(true)"
+          :class="{active:value}">
             Unblock
         </div>
         <div
           id="block"
-          @click="switched(true)"
-          :class="{active:value}">
+          @click="switched(false)"
+          :class="{active:!value}">
             Block
         </div>
     </div>

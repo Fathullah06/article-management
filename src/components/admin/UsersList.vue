@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ul class="list-group"  v-if="usersName.length!=0" v-for="(userName,i) in usersName" :key="i">
+    <ul class="list-group"  v-if="adminUsers.length!=0" v-for="(adminUser,i) in adminUsers" :key="i">
       <li class="list-group-item">
-        <app-switch-component v-if="true" :id="i" :name="userName" :role="'(role)'"></app-switch-component>
+        <app-switch-component v-if="true" :id="i" :status="adminUser.adminUser.status" :name="adminUser.adminUser.adminUserName" :role="'(role)'"></app-switch-component>
       </li>
     </ul>
   </div>
@@ -12,35 +12,23 @@
 /* eslint-disable */
 import axios from "axios";
 import SwitchComponent from "../shared/components/SwitchComponent.vue";
+import { getAllUsers } from "../shared/services/app.services";
 export default {
   data() {
     return {
-      usersName:['aa','bb','cc','dd'],
+      adminUsers: null
     };
   },
-  // created() {
-  //   axios
-  //     .post(`http://172.16.3.104:3000/user/loginAD`, {
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(this.data1)
-  //     })
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       this.state.token = json.token;
-  //       this.state.success = json.success;
-  //       console.log(json.success);
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  //   // axios.post(`http://jsonplaceholder.typicode.com/posts`, {
-  //   //   body: "fdgjkldfg"
-  //   // })
-  //   // .then(response => {console.log(response)})
-  //   // .catch(e => {
-  //   //   console.log(e)
-  //   // })
-  // },
+  created() {
+    getAllUsers()
+      .then(res => {
+        this.adminUsers=res.data.adminUsers;
+        console.log(res.data.adminUsers);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  },
   components: {
     appSwitchComponent: SwitchComponent
   }

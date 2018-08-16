@@ -11,13 +11,13 @@ import SwitchView from "./SwitchView.vue";
 export default {
   data() {
     return {
-      dataSwitch: false
+      dataSwitch: this.status
     };
   },
   components: {
     formSwitch: SwitchView
   },
-  props: ["id", "name","role"]
+  props: ["id", "name","role","status"]
 };
 </script>
 
