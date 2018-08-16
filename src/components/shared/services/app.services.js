@@ -15,8 +15,20 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
+function editArticle (id, data) {
+  return axios.put(GLOBAL['EDIT_ARTICLE'] + id, data);
+}
+
+function getArticleById (id) {
+  return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
+}
+
+function getDrafts () {
+  return axios.get(GLOBAL['GET_DRAFTS']);
+}
+
 function viewArticle (id) {
-  return axios.get(GLOBAL['VIEW_ARTICLE'] + id);
+  return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 
 function deleteArticle (id) {
@@ -42,5 +54,8 @@ export {
   deleteArticle,
   likeArticle,
   dislikeArticle,
-  globalSearch
+  globalSearch,
+  editArticle,
+  getArticleById,
+  getDrafts
 };
