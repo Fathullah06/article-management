@@ -44,7 +44,11 @@
 
 <script>
 /* eslint-disable */
-import { likeArticle, dislikeArticle } from "../services/app.services";
+import {
+  likeArticle,
+  dislikeArticle,
+  commentOnArticle
+} from "../services/app.services";
 export default {
   data() {
     return {
@@ -58,9 +62,8 @@ export default {
     };
   },
   computed: {},
-  props: ["id", "likes", "dislikes"],
+  props: ["id", "likes", "dislikes", "comments"],
   created() {
-    console.log(this.dislikes);
     if (
       this.$cookie.get("token") === "" ||
       this.$store.getters.getToken === ""
@@ -76,16 +79,16 @@ export default {
       } else {
         this.likeFlag = true;
         this.dislikeFlag = false;
-        console.log({
-          id: this.id,
-          like: this.likeFlag,
-          dislike: this.dislikeFlag
-        });
+        // console.log({
+        //   id: this.id,
+        //   like: this.likeFlag,
+        //   dislike: this.dislikeFlag
+        // });
         // return this.counter++;
         likeArticle(this.id, this.$store.getters.getToken)
           .then(res => {
             this.likeCounter = res.data.likes.like;
-            console.log(res.data.likes.like);
+            // console.log(res.data.likes.like);
             return this.likeCounter;
           })
           .catch(err => {
@@ -104,16 +107,16 @@ export default {
       } else {
         this.dislikeFlag = true;
         this.likeFlag = false;
-        console.log({
-          id: this.id,
-          like: this.likeFlag,
-          dislike: this.dislikeFlag
-        });
+        // console.log({
+        //   id: this.id,
+        //   like: this.likeFlag,
+        //   dislike: this.dislikeFlag
+        // });
         // return this.counter--;
         dislikeArticle(this.id, this.$store.getters.getToken)
           .then(res => {
             this.dislikeCounter = res.data.dislikes.disLike;
-            console.log(res.data.dislikes.disLike);
+            // console.log(res.data.dislikes.disLike);
           })
           .catch(err => {
             console.error(err);
@@ -135,6 +138,14 @@ export default {
         id: this.id,
         comment: this.comment
       });
+      this.comments.push(this.comment);
+      commentOnArticle(this.id, this.comment, this.$store.getters.getToken)
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+        });
       this.comment = "";
     }
   }

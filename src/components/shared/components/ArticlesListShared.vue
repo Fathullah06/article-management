@@ -8,7 +8,7 @@
                 {{article.article.description}}
             </div>
             <div class="panel-footer">
-                <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes"></app-three-button-shared>
+                <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
                 <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>

@@ -3,26 +3,35 @@
       <b v-if="role" style="margin: 10px 20px;">{{role}}</b>
         <div
           id="unblock"
-          @click="switched(false)"
-          :class="{active:!value}">
+          @click="switched(true)"
+          :class="{active:value}">
             Unblock
         </div>
         <div
           id="block"
-          @click="switched(true)"
-          :class="{active:value}">
+          @click="switched(false)"
+          :class="{active:!value}">
             Block
         </div>
     </div>
 </template>
 <script>
 /* eslint-disable */
+import { userListBlock } from "../services/app.services";
 export default {
-  props: ["value", "id","role"],
+  props: ["value", "id", "role"],
   methods: {
     switched(isOn) {
       this.$emit("input", isOn);
-      console.log({ id: this.id, block: this.value });
+      // console.log(userListBlock(this.id, { status: isOn }));
+      userListBlock(this.id, { status: isOn })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      // console.log({ id: this.id, block: this.value });
     }
   }
 };
@@ -51,7 +60,7 @@ export default {
   background-color: lightcoral;
 }
 #unblock.active,
-#block.active{
+#block.active {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.8;

@@ -30,17 +30,31 @@ function getDrafts () {
 function viewArticle (id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
-
-function deleteArticle (id) {
-  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id)
+function likeArticle(id, data) {
+  return axios.get(GLOBAL['LIKE'] + id, data);
 }
 
-function likeArticle(id,data) {
-  return axios.get(GLOBAL['LIKE']+'/'+id, data);
+function dislikeArticle(id, data) {
+  return axios.get(GLOBAL['DISLIKE'] + id, data);
 }
 
-function dislikeArticle (id,data) {
-  return axios.get(GLOBAL['DISLIKE']+'/'+id,data);
+function commentOnArticle(id, data) {
+  return axios.post(GLOBAL['COMMENT'] + id, data);
+}
+
+function getAllUsers(data) {
+  return axios.get(GLOBAL['GET_ALL_USERS'], data);
+}
+function viewArticle(id) {
+  return axios.get(GLOBAL['VIEW_ARTICLE'] + id);
+}
+
+function deleteArticle(id) {
+  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id);
+}
+
+function userListBlock(id,data) {
+  return axios.patch(GLOBAL['USER_LIST_BLOCK'] + id, data);
 }
 
 function globalSearch (searchText) {
@@ -57,5 +71,8 @@ export {
   globalSearch,
   editArticle,
   getArticleById,
-  getDrafts
+  getDrafts,
+  commentOnArticle,
+  getAllUsers,
+  userListBlock
 };
