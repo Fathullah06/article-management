@@ -8,7 +8,7 @@
                 {{article.article.description}}
             </div>
             <div class="panel-footer">
-                <app-three-button-shared v-if="threeButtonFlag" :id="id"></app-three-button-shared>
+                <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes"></app-three-button-shared>
                 <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
@@ -34,12 +34,14 @@ export default {
   data() {
     return {
       id: this.article.article._id,
-      comments: this.article.article.comments
+      comments: this.article.article.comments,
+      likes: this.article.article.like,
+      dislikes: this.article.article.disLike
     };
   },
-//   created() {
-//     console.log(this.comments.length);
-//   },
+    // created() {
+    //   console.log(this.article.article.disLike);
+    // },
   props: [
     "article",
     "threeButtonFlag",

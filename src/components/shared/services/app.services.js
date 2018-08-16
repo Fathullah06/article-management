@@ -23,10 +23,20 @@ function deleteArticle (id) {
   return axios.delete(GLOBAL['DELETE_ARTICLE'] + id)
 }
 
+function likeArticle(id,data) {
+  return axios.get(GLOBAL['LIKE']+'/'+id, data);
+}
+
+function dislikeArticle (id,data) {
+  return axios.get(GLOBAL['DISLIKE']+'/'+id,data);
+}
+
 export {
   home,
   login,
   createArticle,
   viewArticle,
-  deleteArticle
+  deleteArticle,
+  likeArticle,
+  dislikeArticle
 };

@@ -10,3 +10,5 @@ GLOBAL['DISPLAY_ALL_ARTICLES_URL'] = GLOBAL['BASE_URL'] + '/article/getAllArticl
 GLOBAL['CREATE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/createArticle';
 GLOBAL['VIEW_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['DELETE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
+GLOBAL['LIKE'] = GLOBAL['BASE_URL'] + '/article/like';
+GLOBAL['DISLIKE'] = GLOBAL['BASE_URL'] + '/article/dislike';

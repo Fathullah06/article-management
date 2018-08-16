@@ -14,8 +14,8 @@
             </app-articles-list-shared>
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->
         </div>
-        <div v-else class="col-sm-12 col-md-12">
-            <p>loading</p>
+        <div v-if="articles.length==0" class="col-sm-12 col-md-12">
+            <p><md-progress-spinner md-mode="indeterminate"></md-progress-spinner></p>
         </div>
     </div>
 </template>
@@ -50,5 +50,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+p {
+  text-align: center;
+}
+.md-progress-spinner {
+  margin: 24px;
+}
 </style>
