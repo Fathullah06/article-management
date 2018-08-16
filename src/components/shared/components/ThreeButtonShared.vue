@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="nav nav-pills">
-            <li>{{counter}}</li>
+            <li>{{likeCounter}}</li>
             <li @click='like'>
               <span id="like"
                 v-bind:class="{ active: likeFlag }"
@@ -10,6 +10,7 @@
                 data-toggle="tooltip" data-placement="bottom" title="Like">
               </span>
             </li>
+            <li>{{dislikeCounter}}</li>
             <li @click="dislike">
               <span id="disLike"
                 v-bind:class="{ active: dislikeFlag }"
@@ -43,19 +44,33 @@
 
 <script>
 /* eslint-disable */
+import { likeArticle, dislikeArticle } from "../services/app.services";
 export default {
   data() {
     return {
-      counter: 0,
+      likeCounter: this.likes,
+      dislikeCounter: this.dislikes,
       likeFlag: false,
       dislikeFlag: false,
       commentFlag: false,
-      comment: ""
+      comment: "",
+      login: true
     };
   },
-  props: ["id"],
+  computed: {},
+  props: ["id", "likes", "dislikes"],
+  created() {
+    console.log(this.dislikes);
+    if (
+      this.$cookie.get("token") === "" ||
+      this.$store.getters.getToken === ""
+    ) {
+      this.login = false;
+    }
+  },
   methods: {
     like() {
+      // if (this.login) {
       if (this.likeFlag == true) {
         return;
       } else {
@@ -66,10 +81,24 @@ export default {
           like: this.likeFlag,
           dislike: this.dislikeFlag
         });
-        return this.counter++;
+        // return this.counter++;
+        likeArticle(this.id, this.$store.getters.getToken)
+          .then(res => {
+            this.likeCounter = res.data.likes.like;
+            console.log(res.data.likes.like);
+            return this.likeCounter;
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
+      // }
+      // else {
+      //   this.$router.push({ path: "login" });
+      // }
     },
     dislike() {
+      // if (this.login) {
       if (this.dislikeFlag == true) {
         return;
       } else {
@@ -80,11 +109,26 @@ export default {
           like: this.likeFlag,
           dislike: this.dislikeFlag
         });
-        return this.counter--;
+        // return this.counter--;
+        dislikeArticle(this.id, this.$store.getters.getToken)
+          .then(res => {
+            this.dislikeCounter = res.data.dislikes.disLike;
+            console.log(res.data.dislikes.disLike);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
+      // } else {
+      //   this.$router.push({ path: "login" });
+      // }
     },
     commentClick() {
+      // if (this.login) {
       this.commentFlag = !this.commentFlag;
+      // } else {
+      //   this.$router.push({ path: "login" });
+      // }
     },
     sendComment() {
       console.log({

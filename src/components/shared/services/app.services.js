@@ -15,8 +15,18 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
+function likeArticle(id,data) {
+  return axios.get(GLOBAL['LIKE']+'/'+id, data);
+}
+
+function dislikeArticle (id,data){
+  return axios.get(GLOBAL['DISLIKE']+'/'+id,data);
+}
+
 export {
   home,
   login,
-  createArticle
+  createArticle,
+  likeArticle,
+  dislikeArticle
 };
