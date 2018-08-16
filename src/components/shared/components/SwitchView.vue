@@ -17,20 +17,30 @@
 </template>
 <script>
 /* eslint-disable */
-import { userListBlock } from "../services/app.services";
+import { userListBlock, articlesListBlock } from "../services/app.services";
 export default {
-  props: ["value", "id", "role"],
+  props: ["value", "id", "role", "articleList"],
   methods: {
     switched(isOn) {
       this.$emit("input", isOn);
-      // console.log(userListBlock(this.id, { status: isOn }));
-      userListBlock(this.id, { status: isOn })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      if (this.articleList) {
+        articlesListBlock(this.id, { isBlocked: isOn })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        userListBlock(this.id, { status: isOn })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
+
       // console.log({ id: this.id, block: this.value });
     }
   }

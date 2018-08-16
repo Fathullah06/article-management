@@ -18,6 +18,7 @@ GLOBAL['VIEW_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['DELETE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['USER_LIST_BLOCK'] = GLOBAL['BASE_URL'] + '/admin/blockedUser/';
 GLOBAL['SEARCH_GLOBAL'] = GLOBAL['BASE_URL'] + '/article/search';
+GLOBAL['ARTICLES_LIST_BLOCK'] = GLOBAL['BASE_URL'] + '/admin/getArticles';
 GLOBAL['GET_DRAFTS'] = GLOBAL['BASE_URL'] + '/trending/draftArticles';
 GLOBAL['MY_TRENDING_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/trendingArticle';
 GLOBAL['MY_BLOCKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/unApprovedArticles';

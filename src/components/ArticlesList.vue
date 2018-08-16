@@ -10,7 +10,8 @@
                 :threeButtonFlag="false"
                 :twoButtonFlag="false"
                 :switchComponentFlag="true"
-                :switchLabel="'Block / Unblock Article'">
+                :switchLabel="'Block / Unblock Article'"
+                :articleList="true">
             </app-articles-list-shared>
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->
         </div>
@@ -24,29 +25,24 @@
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "./shared/components/AdvancedSearchShared.vue";
+import { articlesListBlock } from "./shared/services/app.services";
 export default {
   data() {
     return {
-      articles: [
-        {
-          article: {
-            articleName: "Article Title1",
-            description: "This is Article Body1",
-            comments: [],
-            _id: 0
-          }
-        },
-        {
-          article: {
-            articleName: "Article Title2",
-            description: "This is Article Body2",
-            comments: [],
-            _id: 1
-          }
-        }
-      ],
+      articles: null,
       homeErrors: []
     };
+  },
+  created() {
+    articlesListBlock()
+      .then(res => {
+        this.articles = res.data.article;
+        console.log(res.data.article);
+        console.log(this.articles);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   components: {
     appArticlesListShared: ArticlesListShared,

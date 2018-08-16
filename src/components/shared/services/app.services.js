@@ -15,11 +15,11 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
-function editArticle (id, data) {
+function editArticle(id, data) {
   return axios.put(GLOBAL['EDIT_ARTICLE'] + id, data);
 }
 
-function getArticleById (id) {
+function getArticleById(id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 
@@ -31,11 +31,11 @@ function myBlockedArticles () {
   return axios.get(GLOBAL['MY_BLOCKED_ARTICLES']);
 }
 
-function getDrafts () {
+function getDrafts() {
   return axios.get(GLOBAL['GET_DRAFTS']);
 }
 
-function viewArticle (id) {
+function viewArticle(id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 function likeArticle(id, data) {
@@ -61,11 +61,15 @@ function deleteArticle(id) {
   return axios.delete(GLOBAL['DELETE_ARTICLE'] + id);
 }
 
-function userListBlock(id,data) {
+function userListBlock(id, data) {
   return axios.patch(GLOBAL['USER_LIST_BLOCK'] + id, data);
 }
 
-function globalSearch (searchText) {
+function articlesListBlock(data) {
+  return axios.get(GLOBAL['ARTICLES_LIST_BLOCK'], data);
+}
+
+function globalSearch(searchText) {
   return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
 }
 export {
@@ -84,5 +88,7 @@ export {
   getAllUsers,
   userListBlock,
   myTrendingArticles,
-  myBlockedArticles
-};
+  myBlockedArticles,
+  articlesListBlock
+
+}
