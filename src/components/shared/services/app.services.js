@@ -15,19 +15,19 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
-function editArticle (id, data) {
+function editArticle(id, data) {
   return axios.put(GLOBAL['EDIT_ARTICLE'] + id, data);
 }
 
-function getArticleById (id) {
+function getArticleById(id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 
-function getDrafts () {
+function getDrafts() {
   return axios.get(GLOBAL['GET_DRAFTS']);
 }
 
-function viewArticle (id) {
+function viewArticle(id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 function likeArticle(id, data) {
@@ -79,6 +79,6 @@ export {
   commentOnArticle,
   getAllUsers,
   userListBlock,
-  articlesListBlock,
-  globalSearch
+  articlesListBlock
+
 }
