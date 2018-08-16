@@ -49,7 +49,7 @@
 
 <script>
 import {Article} from './article';
-import { createArticle } from '../shared/services/app.services';
+import { createArticle, getArticleById } from '../shared/services/app.services';
 export default {
     data () {
         let article = new Article();
@@ -97,6 +97,25 @@ export default {
             } else {
                 return false;
             }
+        }
+    },
+    created () {
+        let vm = this;
+        if (this.$route.params.id) {
+            getArticleById(this.$route.params.id)
+            .then(res => {
+                if (res.data.messageCode === 'OK') {
+                    vm.article = res.data.article;
+                    if (res.data.article.isPublic) {
+                        vm.radio = 'public';
+                    } else if (!(res.data.article.isPublic)) {
+                        vm.radio = 'private';
+                    }
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
         }
     }
 };

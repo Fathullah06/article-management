@@ -10,6 +10,7 @@
                     <router-link v-if="loggedIn" to="/dashboard" activeClass="active" tag="li"><a>Dashboard</a></router-link>
                     <router-link v-if="loggedIn" to="/createArticle" activeClass="active" tag="li"><a>Create</a></router-link>
                     <router-link v-if="loggedIn" to="/createdArticles" activeClass="active" tag="li"><a>Articles</a></router-link>
+                    <router-link v-if="loggedIn" to="/draftArticles" activeClass="active" tag="li"><a>Drafts</a></router-link>
                     <router-link v-if="loggedIn && isAdmin" to="/articlesList" activeClass="active" tag="li"><a>Articles List</a></router-link>
                     <router-link v-if="loggedIn && isAdmin" to="/usersList" activeClass="active" tag="li"><a>Users List</a></router-link>
                 </ul>

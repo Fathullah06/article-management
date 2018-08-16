@@ -35,6 +35,7 @@ export default {
   methods: {
     edit() {
       console.log("Edit Article: " + this.id);
+      this.$router.push({path: '/editArticle/' + this.id});
     },
     delete1() {
       let vm = this;

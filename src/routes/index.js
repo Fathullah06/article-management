@@ -6,6 +6,7 @@ import CreateArticle from '../components/users/CreateArticle.vue';
 import CreatedArticles from '../components/users/CreatedArticles.vue';
 import Dashboard from '../components/users/Dashboard.vue';
 import ViewArticle from '../components/users/ViewArticle.vue';
+import DraftArticles from '../components/users/DraftArticles.vue';
 
 export const routes = [{
     path: '/',
@@ -28,6 +29,10 @@ export const routes = [{
     component: CreateArticle
   },
   {
+    path: '/editArticle/:id',
+    component: CreateArticle
+  },
+  {
     path: '/createdArticles',
     component: CreatedArticles
   },
@@ -38,5 +43,9 @@ export const routes = [{
   {
     path: '/viewArticle/:id',
     component: ViewArticle
+  },
+  {
+    path: '/draftArticles',
+    component: DraftArticles
   }
 ];

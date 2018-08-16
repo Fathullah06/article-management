@@ -22,12 +22,6 @@ export default {
     data () {
         return {
             article: {
-                    article: {
-                    articleName: '',
-                    description: '',
-                    comments: [],
-                    _id: this.$route.params.id
-                }
             },
             displayArticle: false
         };
