@@ -57,7 +57,11 @@ export default {
   },
   methods: {
       viewArticle () {
-          this.$router.push({path: '/viewArticle/' +  this.article.article._id});
+        if (this.$cookie.get('token') || this.$store.getters.getToken !== '') {
+            this.$router.push({path: '/viewArticle/' +  this.article.article._id});
+        } else {
+            this.$router.push({path: '/login'});
+        }
       }
   }
 };

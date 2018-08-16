@@ -42,6 +42,9 @@ function userListBlock(id,data) {
   return axios.patch(GLOBAL['USER_LIST_BLOCK'] + id, data);
 }
 
+function globalSearch (searchText) {
+  return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
+}
 export {
   home,
   login,
@@ -52,5 +55,6 @@ export {
   dislikeArticle,
   commentOnArticle,
   getAllUsers,
-  userListBlock
+  userListBlock,
+  globalSearch
 }

@@ -45,9 +45,8 @@ export default {
           byTags: this.byTags
         });
       } else {
-        return console.log({
-          searchText: this.searchText
-        });
+        console.log('searchText : ' + this.searchText);
+        this.$emit('clicked', this.searchText);
       }
     }
   }

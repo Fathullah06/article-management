@@ -15,3 +15,4 @@ GLOBAL['GET_ALL_USERS'] = GLOBAL['BASE_URL'] + '/admin/getUsers';
 GLOBAL['VIEW_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['DELETE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['USER_LIST_BLOCK'] = GLOBAL['BASE_URL'] + '/admin/blockedUser/';
+GLOBAL['SEARCH_GLOBAL'] = GLOBAL['BASE_URL'] + '/article/search';

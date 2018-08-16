@@ -8,7 +8,7 @@ export const mutations = {
         state.token = token;
     },
     'SET_ROLE' (state, { role }) {
-        state.token = role;
+        state.role = role;
     }
 };
 

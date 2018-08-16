@@ -39,7 +39,7 @@
                 this.$cookie.delete('token');
                 this.$cookie.delete('role');
                 this.isAdmin = false;
-                this.$router.push({path: 'login'});
+                this.$router.push({path: '/login'});
             }
         },
         computed: {
