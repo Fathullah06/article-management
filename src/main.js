@@ -18,7 +18,17 @@ Vue.use(VeeValidate);
 Vue.use(VueMaterial);
 Vue.use(VueCookie);
 
-axios.defaults.headers.common['Authorization'] = VueCookie.get('token');
+axios.interceptors.request.use(function (config) {
+  if (VueCookie.get('token') != null) {
+    config.headers.Authorization = VueCookie.get('token');
+  }
+
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+});
+
+// axios.defaults.headers.common['Authorization'] = VueCookie.get('token');
 
 const router = new Router({
   mode: 'history',

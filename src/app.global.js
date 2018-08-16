@@ -12,3 +12,4 @@ GLOBAL['VIEW_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['DELETE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
 GLOBAL['LIKE'] = GLOBAL['BASE_URL'] + '/article/like';
 GLOBAL['DISLIKE'] = GLOBAL['BASE_URL'] + '/article/dislike';
+GLOBAL['SEARCH_GLOBAL'] = GLOBAL['BASE_URL'] + '/article/search';

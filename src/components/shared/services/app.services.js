@@ -31,6 +31,9 @@ function dislikeArticle (id,data) {
   return axios.get(GLOBAL['DISLIKE']+'/'+id,data);
 }
 
+function globalSearch (searchText) {
+  return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
+}
 export {
   home,
   login,
@@ -38,5 +41,6 @@ export {
   viewArticle,
   deleteArticle,
   likeArticle,
-  dislikeArticle
+  dislikeArticle,
+  globalSearch
 };
