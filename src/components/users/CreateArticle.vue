@@ -6,7 +6,7 @@
                     <label for="name">
                         Article Name
                     </label>
-                    <input class="form-control" type="text" name="name" v-model="article.articleName" v-validate="'required'" >
+                    <input class="form-control" type="text" name="name" data-vv-validate-on="blur"  v-model="article.articleName" v-validate="'required'" >
                     <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
                 </div>
                 <div class="form-group">

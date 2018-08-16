@@ -2,7 +2,7 @@
     <div class="col-sm-12 col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">{{article.article.articleName}}</h3>
+                <h3 class="panel-title" style="cursor: pointer" @click="viewArticle">{{article.article.articleName}}</h3>
             </div>
             <div class="panel-body">
                 {{article.article.description}}
@@ -54,6 +54,11 @@ export default {
     appThreeButtonShared: ThreeButtonShared,
     appSwitchComponent: SwitchComponent,
     appTwoButtonShared: TwoButtonShared
+  },
+  methods: {
+      viewArticle () {
+          this.$router.push({path: '/viewArticle/' +  this.article.article._id});
+      }
   }
 };
 </script>

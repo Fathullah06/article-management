@@ -23,6 +23,7 @@
 
 <script>
 /* eslint-disable */
+import { deleteArticle } from '../services/app.services'
 export default {
   data() {
     return {
@@ -36,7 +37,18 @@ export default {
       console.log("Edit Article: " + this.id);
     },
     delete1() {
+      let vm = this;
       console.log("Delete Article: " + this.id);
+      deleteArticle(this.id)
+      .then(res => {
+        if (res.data.messageCode === 'DELETED') {
+          console.log('Deleted Successfully');
+          vm.$router.push({path: '/dashboard'});
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
   }
 };

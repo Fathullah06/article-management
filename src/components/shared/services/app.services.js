@@ -27,16 +27,26 @@ function commentOnArticle(id, data) {
   return axios.post(GLOBAL['COMMENT'] + id, data);
 }
 
-function getAllUsers(data){
-  return axios.get(GLOBAL['GET_ALL_USERS'],data);
+function getAllUsers(data) {
+  return axios.get(GLOBAL['GET_ALL_USERS'], data);
 }
+function viewArticle(id) {
+  return axios.get(GLOBAL['VIEW_ARTICLE'] + id);
+}
+
+function deleteArticle(id) {
+  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id)
+}
+
 
 export {
   home,
   login,
   createArticle,
+  viewArticle,
+  deleteArticle,
   likeArticle,
   dislikeArticle,
   commentOnArticle,
   getAllUsers
-};
+}
