@@ -38,11 +38,15 @@ function deleteArticle(id) {
   return axios.delete(GLOBAL['DELETE_ARTICLE'] + id);
 }
 
-function userListBlock(id,data) {
+function userListBlock(id, data) {
   return axios.patch(GLOBAL['USER_LIST_BLOCK'] + id, data);
 }
 
-function globalSearch (searchText) {
+function articlesListBlock(data) {
+  return axios.get(GLOBAL['ARTICLES_LIST_BLOCK'], data);
+}
+
+function globalSearch(searchText) {
   return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
 }
 export {
@@ -56,5 +60,6 @@ export {
   commentOnArticle,
   getAllUsers,
   userListBlock,
+  articlesListBlock,
   globalSearch
 }

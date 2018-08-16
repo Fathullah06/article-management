@@ -9,13 +9,13 @@
             </div>
             <div class="panel-footer">
                 <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
-                <app-switch-component v-if="switchComponentFlag" :id="id" :name="switchLabel"></app-switch-component>
+                <app-switch-component v-if="switchComponentFlag" :status="article.article.isBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
             <div v-if="commentsFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
-                    <p class="list-group-item">{{comment}}</p>
+                    <p class="list-group-item">{{comment.comment}}</p>
                 </div>
                 <div v-if="comments.length==0">
                     <p class="list-group-item">No comments...</p>
@@ -48,7 +48,8 @@ export default {
     "twoButtonFlag",
     "switchComponentFlag",
     "switchLabel",
-    "commentsFlag"
+    "commentsFlag",
+    "articleList"
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,

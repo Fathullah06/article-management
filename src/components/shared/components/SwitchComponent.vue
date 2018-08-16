@@ -1,7 +1,7 @@
 <template>
       <div class="nav nav-pills">
         <p class="navbar-left">{{name}}</p>
-        <form-switch v-model="dataSwitch" :id="id" :role="role"></form-switch>
+        <form-switch v-model="dataSwitch" :articleList="articleList" :id="id" :role="role"></form-switch>
       </div>
 </template>
 
@@ -11,13 +11,13 @@ import SwitchView from "./SwitchView.vue";
 export default {
   data() {
     return {
-      dataSwitch: this.status
+      dataSwitch:this.status
     };
   },
   components: {
     formSwitch: SwitchView
   },
-  props: ["id", "name","role","status"]
+  props: ["id", "name","role","status","articleList"]
 };
 </script>
 
