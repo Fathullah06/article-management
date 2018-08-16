@@ -15,8 +15,18 @@ function createArticle(data) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], data);
 }
 
+function viewArticle (id) {
+  return axios.get(GLOBAL['VIEW_ARTICLE'] + id);
+}
+
+function deleteArticle (id) {
+  return axios.delete(GLOBAL['DELETE_ARTICLE'] + id)
+}
+
 export {
   home,
   login,
-  createArticle
+  createArticle,
+  viewArticle,
+  deleteArticle
 };

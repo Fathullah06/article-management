@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="displayArticle">
         <div >
             <app-articles-list-shared
                 :article="article"
@@ -17,21 +17,37 @@
 
 <script>
 import ArticlesListShared from '../shared/components/ArticlesListShared.vue';
+import { viewArticle } from '../shared/services/app.services';
 export default {
     data () {
         return {
             article: {
                     article: {
-                    articleName: 'Article Title1',
-                    description: 'This is Article Body1',
+                    articleName: '',
+                    description: '',
                     comments: [],
-                    _id: 0
+                    _id: this.$route.params.id
                 }
-            }
+            },
+            displayArticle: false
         };
     },
     components: {
         appArticlesListShared: ArticlesListShared
+    },
+    created () {
+        let vm = this;
+        console.log('Make api call for view article using route param id');
+        viewArticle(this.$route.params.id)
+        .then(res => {
+            if (res.data.messageCode === 'OK') {
+                vm.displayArticle = true;
+                vm.article.article = res.data.article;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
     }
 };
 </script>

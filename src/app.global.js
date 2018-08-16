@@ -6,5 +6,7 @@ GLOBAL['HTTP_METHOD_POST'] = 'POST';
 GLOBAL['HTTP_METHOD_PUT'] = 'PUT';
 
 GLOBAL['SIGN_IN_URL'] = GLOBAL['BASE_URL'] + '/user/loginAD';
-GLOBAL['DISPLAY_ALL_ARTICLES_URL'] = GLOBAL['BASE_URL'] + '/article/getArticle';
+GLOBAL['DISPLAY_ALL_ARTICLES_URL'] = GLOBAL['BASE_URL'] + '/article/getAllArticles';
 GLOBAL['CREATE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/createArticle';
+GLOBAL['VIEW_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
+GLOBAL['DELETE_ARTICLE'] = GLOBAL['BASE_URL'] + '/article/';
