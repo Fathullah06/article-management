@@ -7,7 +7,7 @@
                 </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body" v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
+                <div class="panel-body" v-if="myTrendingArticles.length!=0" v-for="(article,i) in myTrendingArticles" :key="i">
                     <app-articles-list-shared
                         :article="article"
                         :id=1
@@ -17,7 +17,7 @@
                     </app-articles-list-shared>
                 </div>
                 <div class="panel-footer">
-                    Total number of Trending Articles:{{articles.length}}
+                    Total number of Trending Articles:{{myTrendingArticles.length}}
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 </h4>
             </div>
             <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body" v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
+                <div class="panel-body" v-if="myBlockedArticles.length!=0" v-for="(article,i) in myBlockedArticles" :key="i">
                     <app-articles-list-shared
                         :article="article"
                         :id=1
@@ -38,7 +38,7 @@
                     </app-articles-list-shared>
                 </div>
                 <div class="panel-footer">
-                    Total number of Blocked Articles:{{articles.length}}
+                    Total number of Blocked Articles:{{myBlockedArticles.length}}
                 </div>
             </div>
         </div>
@@ -48,31 +48,44 @@
 <script>
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared";
+import { myTrendingArticles, myBlockedArticles } from '../shared/services/app.services'
 export default {
   data() {
     return {
-      articles: [
-        {
-          article: {
-            articleName: "Article Title1",
-            description: "This is Article Body1",
-            comments: [],
-            _id: 0
-          }
-        },
-        {
-          article: {
-            articleName: "Article Title2",
-            description: "This is Article Body2",
-            comments: [],
-            _id: 1
-          }
-        }
-      ]
+      myTrendingArticles: [],
+      myBlockedArticles: []
     };
   },
   components: {
     appArticlesListShared: ArticlesListShared
+  },
+  created () {
+      let vm = this;
+      myTrendingArticles()
+      .then(res => {
+        debugger;
+        if (res.data.messageCode === 'OK') {
+            vm.myTrendingArticles = res.data.articles;
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+            vm.myTrendingArticles = [];
+        }
+      })
+      .catch(err => {
+          console.error(err);
+      });
+
+      myBlockedArticles()
+      .then(res => {
+        debugger;
+        if (res.data.messageCode === 'OK') {
+            vm.myBlockedArticles = res.data.articles;
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+            vm.myBlockedArticles = [];
+        }
+      })
+      .catch(err => {
+          console.error(err);
+      });
   }
 };
 </script>

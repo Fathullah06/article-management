@@ -23,6 +23,14 @@ function getArticleById (id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 
+function myTrendingArticles () {
+  return axios.get(GLOBAL['MY_TRENDING_ARTICLES']);
+}
+
+function myBlockedArticles () {
+  return axios.get(GLOBAL['MY_BLOCKED_ARTICLES']);
+}
+
 function getDrafts () {
   return axios.get(GLOBAL['GET_DRAFTS']);
 }
@@ -74,5 +82,7 @@ export {
   getDrafts,
   commentOnArticle,
   getAllUsers,
-  userListBlock
+  userListBlock,
+  myTrendingArticles,
+  myBlockedArticles
 };
