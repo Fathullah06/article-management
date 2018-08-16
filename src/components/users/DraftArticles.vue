@@ -34,7 +34,6 @@ export default {
       let vm = this;
       getDrafts()
       .then(res => {
-        debugger;
         if (res.data.messageCode === 'OK') {
             vm.articles = res.data.articles;
         } else if (res.data.messageCode === 'NO_DRAFTS') {

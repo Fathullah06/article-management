@@ -73,65 +73,65 @@ export default {
   },
   methods: {
     like() {
-      // if (this.login) {
-      if (this.likeFlag == true) {
-        return;
-      } else {
-        this.likeFlag = true;
-        this.dislikeFlag = false;
-        // console.log({
-        //   id: this.id,
-        //   like: this.likeFlag,
-        //   dislike: this.dislikeFlag
-        // });
-        // return this.counter++;
-        likeArticle(this.id, this.$store.getters.getToken)
-          .then(res => {
-            this.likeCounter = res.data.likes.like;
-            // console.log(res.data.likes.like);
-            return this.likeCounter;
-          })
-          .catch(err => {
-            console.error(err);
+      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+        if (this.likeFlag == true) {
+          return;
+        } else {
+          this.likeFlag = true;
+          this.dislikeFlag = false;
+          // console.log({
+          //   id: this.id,
+          //   like: this.likeFlag,
+          //   dislike: this.dislikeFlag
+          // });
+          // return this.counter++;
+          likeArticle(this.id, this.$store.getters.getToken)
+            .then(res => {
+              this.likeCounter = res.data.likes.like;
+              // console.log(res.data.likes.like);
+              return this.likeCounter;
+            })
+            .catch(err => {
+              console.error(err);
           });
+        }
       }
-      // }
-      // else {
-      //   this.$router.push({ path: "login" });
-      // }
+      else {
+        this.$router.push({ path: '/login' });
+      }
     },
     dislike() {
-      // if (this.login) {
-      if (this.dislikeFlag == true) {
-        return;
-      } else {
-        this.dislikeFlag = true;
-        this.likeFlag = false;
-        // console.log({
-        //   id: this.id,
-        //   like: this.likeFlag,
-        //   dislike: this.dislikeFlag
-        // });
-        // return this.counter--;
-        dislikeArticle(this.id, this.$store.getters.getToken)
-          .then(res => {
-            this.dislikeCounter = res.data.dislikes.disLike;
-            // console.log(res.data.dislikes.disLike);
-          })
-          .catch(err => {
-            console.error(err);
+      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+        if (this.dislikeFlag == true) {
+          return;
+        } else {
+          this.dislikeFlag = true;
+          this.likeFlag = false;
+          // console.log({
+          //   id: this.id,
+          //   like: this.likeFlag,
+          //   dislike: this.dislikeFlag
+          // });
+          // return this.counter--;
+          dislikeArticle(this.id, this.$store.getters.getToken)
+            .then(res => {
+              this.dislikeCounter = res.data.dislikes.disLike;
+              // console.log(res.data.dislikes.disLike);
+            })
+            .catch(err => {
+              console.error(err);
           });
+        }
+      } else {
+          this.$router.push({ path: '/login' });
       }
-      // } else {
-      //   this.$router.push({ path: "login" });
-      // }
     },
     commentClick() {
-      // if (this.login) {
-      this.commentFlag = !this.commentFlag;
-      // } else {
-      //   this.$router.push({ path: "login" });
-      // }
+      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+        this.commentFlag = !this.commentFlag;
+      } else {
+          this.$router.push({ path: '/login' });
+      }
     },
     sendComment() {
       console.log({

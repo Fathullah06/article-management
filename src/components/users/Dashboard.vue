@@ -63,7 +63,6 @@ export default {
       let vm = this;
       myTrendingArticles()
       .then(res => {
-        debugger;
         if (res.data.messageCode === 'OK') {
             vm.myTrendingArticles = res.data.articles;
         } else if (res.data.messageCode === 'NO_ARTICLES') {
@@ -76,7 +75,6 @@ export default {
 
       myBlockedArticles()
       .then(res => {
-        debugger;
         if (res.data.messageCode === 'OK') {
             vm.myBlockedArticles = res.data.articles;
         } else if (res.data.messageCode === 'NO_ARTICLES') {
