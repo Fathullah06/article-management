@@ -22,6 +22,9 @@ export default {
   created () {
       if (!(this.$cookie.get('token'))) {
         this.$router.push({path: '/'});
+      } else {
+            this.$store.dispatch('setToken', { token: this.$cookie.get('token') });
+            this.$store.dispatch('setRole', {role: this.$cookie.get('role')});
       }
     }
 };
