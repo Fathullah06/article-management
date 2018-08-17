@@ -28,6 +28,14 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(err);
 });
 
+axios.interceptors.response.use(response => {
+  return response;
+}, error => {
+ if (error.response.status === 401) {
+ }
+ return error;
+});
+
 // axios.defaults.headers.common['Authorization'] = VueCookie.get('token');
 
 const router = new Router({

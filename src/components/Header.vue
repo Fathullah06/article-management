@@ -25,11 +25,6 @@
 
 <script>
     export default {
-        data () {
-            return {
-                isAdmin: false
-            };
-        },
         methods: {
             login () {
                 this.$router.push({path: 'login'});
@@ -40,22 +35,23 @@
                 this.$store.dispatch('setRole', {role: ''});
                 this.$cookie.delete('token');
                 this.$cookie.delete('role');
-                this.isAdmin = false;
                 this.$router.push({path: '/login'});
             }
         },
         computed: {
             loggedIn () {
-                if (this.$store.getters.getToken !== '' || this.$cookie.get('token')) {
+                if (this.$store.getters.getToken !== '' || this.$cookie.get('token') !== null) {
                     return true;
                 } else {
                     return false;
                 }
-            }
-        },
-        created () {
-            if (this.$cookie.get('role') === 'admin' || this.$store.getters.getRole === 'admin') {
-                this.isAdmin = true;
+            },
+            isAdmin () {
+               if (this.$cookie.get('role') === 'admin' || this.$store.getters.getRole === 'admin') {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
     };
