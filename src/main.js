@@ -6,17 +6,28 @@ import VueMaterial from 'vue-material';
 import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import VueCookie from 'vue-cookie';
+import Snotify, { SnotifyPosition } from 'vue-snotify';
 import App from './App';
 import { routes } from './routes';
 import store from '../src/store/store';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
+import 'vue-snotify/styles/material.css';
+
+const options = {
+  toast: {
+    position: SnotifyPosition.rightTop,
+    timeout: 3000,
+    showProgressBar: false
+  }
+};
 
 Vue.config.productionTip = false;
 Vue.use(Router);
 Vue.use(VeeValidate);
 Vue.use(VueMaterial);
 Vue.use(VueCookie);
+Vue.use(Snotify, options);
 
 axios.interceptors.request.use(function (config) {
   if (VueCookie.get('token') != null) {

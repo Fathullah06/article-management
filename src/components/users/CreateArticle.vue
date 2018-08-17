@@ -49,13 +49,14 @@
 
 <script>
 import {Article} from './article';
-import { createArticle, getArticleById } from '../shared/services/app.services';
+import { createArticle, getArticleById, editArticle } from '../shared/services/app.services';
 export default {
     data () {
         let article = new Article();
         return {
             article,
-            radio: ''
+            radio: '',
+            edit: false
         };
     },
     methods: {
@@ -63,7 +64,6 @@ export default {
             console.log('Save and make api call for draft');
             this.article.isPublic = false;
             this.article.isDraft = true;
-            delete this.article.articleId;
             this.publishArticle(this.article);
         },
         submit () {
@@ -72,22 +72,32 @@ export default {
             } else {
                 this.article.isPublic = false;
             }
-            delete this.article.articleId;
             console.log(this.article);
             console.log(this.radio);
             this.publishArticle(this.article);
         },
         publishArticle (data) {
             let vm = this;
-            createArticle(data)
-            .then(res => {
-                if (res.data.message === 'SAVED_SUCCESSFULLY') {
-                    vm.$router.push({path: '/'});
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
+            if (!vm.edit) {
+                delete vm.article.articleId;
+                createArticle(data)
+                .then(res => {
+                    if (res.data.message === 'SAVED_SUCCESSFULLY') {
+                        vm.$snotify.success('Saved successfully!', 'Success');
+                        vm.$router.push({path: '/'});
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            } else {
+                editArticle(this.$route.params.id, data)
+                .then(res => {
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            }
         }
     },
     computed: {
@@ -102,6 +112,7 @@ export default {
     created () {
         let vm = this;
         if (this.$route.params.id) {
+            vm.edit = true;
             getArticleById(this.$route.params.id)
             .then(res => {
                 if (res.data.messageCode === 'OK') {

@@ -6,6 +6,7 @@
           <transition name="slide" mode="out-in">
             <router-view></router-view>
           </transition>
+          <vue-snotify></vue-snotify>
         </div>
     </div>
   </div>

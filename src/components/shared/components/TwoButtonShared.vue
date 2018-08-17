@@ -44,6 +44,7 @@ export default {
       .then(res => {
         if (res.data.messageCode === 'DELETED') {
           console.log('Deleted Successfully');
+          vm.$snotify.success('Deleted successfully!', 'Success');
           vm.$router.push({path: '/dashboard'});
         }
       })

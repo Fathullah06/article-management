@@ -40,6 +40,7 @@
         },
         computed: {
             loggedIn () {
+                debugger;
                 if (this.$store.getters.getToken !== '' || this.$cookie.get('token') !== null) {
                     return true;
                 } else {
