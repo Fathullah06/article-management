@@ -30,7 +30,6 @@
                 this.$router.push({path: 'login'});
             },
             logout () {
-                debugger;
                 this.$store.dispatch('setToken', {token: ''});
                 this.$store.dispatch('setRole', {role: ''});
                 this.$cookie.delete('token');
@@ -40,7 +39,6 @@
         },
         computed: {
             loggedIn () {
-                debugger;
                 if (this.$store.getters.getToken !== '' || this.$cookie.get('token') !== null) {
                     return true;
                 } else {
