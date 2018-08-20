@@ -16,6 +16,9 @@
         <div v-else class="col-sm-12 col-md-12">
             <p>loading</p>
         </div>
+        <div v-if="noArticle"  class="col-sm-12 col-md-12">
+           <p><b>You have not created any articles!!!!</b></p>
+        </div>
     </div>
 </template>
 
@@ -23,6 +26,7 @@
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "../shared/components/AdvancedSearchShared.vue";
+import { createdArticles } from "../shared/services/app.services";
 import axios from "axios";
 export default {
   data() {
@@ -45,8 +49,21 @@ export default {
           }
         }
       ],
-      homeErrors: []
+      homeErrors: [],
+      noArticle:false
     };
+  },
+  created() {
+    createdArticles()
+      .then(res => {
+        console.log(res);
+        if(res.data.message=='You have not created any article'){
+          this.noArticle=true;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   components: {
     appArticlesListShared: ArticlesListShared,
@@ -55,5 +72,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+p{
+  text-align: center;
+}
 </style>

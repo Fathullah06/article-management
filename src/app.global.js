@@ -22,3 +22,5 @@ GLOBAL['ARTICLES_LIST_BLOCK'] = GLOBAL['BASE_URL'] + '/admin/getArticles';
 GLOBAL['GET_DRAFTS'] = GLOBAL['BASE_URL'] + '/trending/draftArticles';
 GLOBAL['MY_TRENDING_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/trendingArticle';
 GLOBAL['MY_BLOCKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/unApprovedArticles';
+GLOBAL['MY_CREATED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/getAllCreatedArticles';
+GLOBAL['ADMIN_BLOCKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/admin/blockedArticle/';

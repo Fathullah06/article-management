@@ -23,11 +23,11 @@ function getArticleById(id) {
   return axios.get(GLOBAL['GET_ARTICLE_BY_ID'] + id);
 }
 
-function myTrendingArticles () {
+function myTrendingArticles() {
   return axios.get(GLOBAL['MY_TRENDING_ARTICLES']);
 }
 
-function myBlockedArticles () {
+function myBlockedArticles() {
   return axios.get(GLOBAL['MY_BLOCKED_ARTICLES']);
 }
 
@@ -69,6 +69,15 @@ function articlesListBlock(data) {
 function globalSearch(searchText) {
   return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
 }
+
+function createdArticles(data) {
+  return axios.get(GLOBAL['MY_CREATED_ARTICLES'], data);
+}
+
+function articleListBlockArticle(id, data) {
+  debugger;
+  return axios.post(GLOBAL['ADMIN_BLOCKED_ARTICLES'] + id, data);
+}
 export {
   home,
   login,
@@ -86,6 +95,7 @@ export {
   userListBlock,
   myTrendingArticles,
   myBlockedArticles,
-  articlesListBlock
-
+  articlesListBlock,
+  createdArticles,
+  articleListBlockArticle
 }

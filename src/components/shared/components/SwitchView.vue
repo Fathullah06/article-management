@@ -17,18 +17,20 @@
 </template>
 <script>
 /* eslint-disable */
-import { userListBlock, articlesListBlock } from "../services/app.services";
+import { userListBlock, articleListBlockArticle } from "../services/app.services";
 export default {
   props: ["value", "id", "role", "articleList"],
   methods: {
     switched(isOn) {
       this.$emit("input", isOn);
       if (this.articleList) {
-        articlesListBlock(this.id, { isUnBlocked: isOn })
+        articleListBlockArticle(this.id, { isUnBlocked: isOn })
           .then(res => {
+            debugger;
             console.log(res);
           })
           .catch(err => {
+            debugger;
             console.error(err);
           });
       } else {
