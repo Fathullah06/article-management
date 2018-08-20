@@ -17,9 +17,9 @@
         <div v-if="noArticleFound">
           <h1>No Article Found!</h1>
         </div>
-        <div v-if="articles.length==0" class="col-sm-12 col-md-12">
+        <!-- <div v-if="articles.length==0" class="col-sm-12 col-md-12">
             <p><md-progress-spinner md-mode="indeterminate"></md-progress-spinner></p>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -37,10 +37,16 @@ export default {
     };
   },
   created() {
+    let vm = this;
     home()
       .then(res => {
-        this.articles = res.data.articles;
-        console.log(this.articles);
+        if (res.data.messageCode === 'OK') {
+          this.articles = res.data.articles;
+          console.log(this.articles);
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+          vm.noArticleFound = true;
+          vm.articles = [];
+        }
       })
       .catch(err => {
         console.error(err);
@@ -58,7 +64,7 @@ export default {
       .then(res => {
         if (res.data.messageCode === 'OK') {
           vm.articles = res.data.articles;
-        } else if (res.data.messageCode === 'NO_ARTICLE_FOUND') {
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
           vm.noArticleFound = true;
           vm.articles = [];
         }

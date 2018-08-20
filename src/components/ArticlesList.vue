@@ -34,11 +34,15 @@ export default {
     };
   },
   created() {
+    let vm = this;
     articlesListBlock()
       .then(res => {
-        this.articles = res.data.article;
-        console.log(res.data.article);
-        console.log(this.articles);
+        if (res.data.messageCode === 'OK') {
+          vm.articles = res.data.article;
+          console.log(res.data.article);
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+          vm.articles = [];
+        }
       })
       .catch(err => {
         console.error(err);

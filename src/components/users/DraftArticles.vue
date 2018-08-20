@@ -10,8 +10,8 @@
                 :switchLabel="'Enable / Disable Article'">
             </app-articles-list-shared>
         </div>
-        <div v-else class="col-sm-12 col-md-12">
-            <p>loading</p>
+        <div v-if="articles.length==0" class="col-sm-12 col-md-12">
+            <h1>No Articles in Drafts</h1>
         </div>
     </div>
 </template>

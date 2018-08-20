@@ -45,8 +45,8 @@ export default {
             vm.$cookie.set('role', res.data.data.role);
             vm.$router.push({ path: "/dashboard" });
             vm.$snotify.success('Logged in successfully!', 'Success');
-          } else {
-              vm.$snotify.error('Authentication failed!', 'Error');
+          } else if (res.data.messageCode === 'AUTHENTICATION_FAILED') {
+              vm.$snotify.error('Username or Password invalid!', 'Error');
           }
         })
         .catch(err => {
