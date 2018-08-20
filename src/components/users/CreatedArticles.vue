@@ -16,6 +16,9 @@
         <div v-else class="col-sm-12 col-md-12">
             <p>No article found !</p>
         </div>
+        <div v-if="noArticle"  class="col-sm-12 col-md-12">
+           <p><b>You have not created any articles!!!!</b></p>
+        </div>
     </div>
 </template>
 
@@ -23,36 +26,56 @@
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "../shared/components/AdvancedSearchShared.vue";
-import { advancedSearch } from '../shared/services/app.services';
+import {
+  advancedSearch,
+  createdArticles
+} from "../shared/services/app.services";
 import axios from "axios";
 export default {
   data() {
     return {
-      articles: [
-      ],
-      homeErrors: []
+      articles: [],
+      homeErrors: [],
+      noArticle: false
     };
+  },
+  created() {
+    createdArticles()
+      .then(res => {
+        console.log(res);
+        if (res.data.message) {
+          this.noArticle = true;
+        } else {
+          this.articles = res.data.articles;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   components: {
     appArticlesListShared: ArticlesListShared,
     appAdvancedSearchShared: AdvancedSearchShared
   },
   methods: {
-    search (data) {
+    search(data) {
       let vm = this;
       advancedSearch(data)
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          vm.articles = res.data.articles;
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.articles = res.data.articles;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+p {
+  text-align: center;
+}
 </style>

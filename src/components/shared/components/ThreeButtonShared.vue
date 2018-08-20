@@ -139,7 +139,7 @@ export default {
         comment: this.comment
       });
       this.comments.push({comment:this.comment});
-      commentOnArticle(this.id, this.comment, this.$store.getters.getToken)
+      commentOnArticle(this.id, {comment:this.comment}, this.$store.getters.getToken)
         .then(res => {
           console.log(res.data);
         })

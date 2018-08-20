@@ -33,7 +33,7 @@ export default {
     return {
       articles: [],
       homeErrors: [],
-      noArticleFound: false
+      noArticleFound: false,
     };
   },
   created() {
@@ -57,7 +57,7 @@ export default {
     appAdvancedSearchShared: AdvancedSearchShared
   },
   methods: {
-    search (data) {
+    search(data) {
       let payload = { searchText: data };
       let vm = this;
       globalSearch(payload)
