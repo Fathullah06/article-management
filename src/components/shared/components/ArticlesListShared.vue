@@ -9,7 +9,7 @@
             </div>
             <div class="panel-footer">
                 <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
-                <app-switch-component v-if="switchComponentFlag" :status="article.article.isBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
+                <app-switch-component v-if="switchComponentFlag" :status="article.article.isUnBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
             <div v-if="commentsFlag" class="panel-footer">

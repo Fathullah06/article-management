@@ -24,7 +24,7 @@ export default {
     switched(isOn) {
       this.$emit("input", isOn);
       if (this.articleList) {
-        articlesListBlock(this.id, { isBlocked: isOn })
+        articlesListBlock(this.id, { isUnBlocked: isOn })
           .then(res => {
             console.log(res);
           })
