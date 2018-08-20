@@ -43,8 +43,10 @@ export default {
     createdArticles()
       .then(res => {
         console.log(res);
-        if (res.data.message == "You have not created any article") {
+        if (res.data.message) {
           this.noArticle = true;
+        } else {
+          this.articles = res.data.articles;
         }
       })
       .catch(err => {

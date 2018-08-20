@@ -17,8 +17,8 @@
         <div v-if="noArticleFound">
           <h1>No Article Found!</h1>
         </div>
-        <div v-if="articles.length==0" class="col-sm-12 col-md-12">
-            <p><md-progress-spinner md-mode="indeterminate"></md-progress-spinner></p>
+        <div v-if="noData" class="col-sm-12 col-md-12">
+            <p>No Articles....</p>
         </div>
     </div>
 </template>
@@ -33,14 +33,20 @@ export default {
     return {
       articles: [],
       homeErrors: [],
-      noArticleFound: false
+      noArticleFound: false,
+      noData:false
     };
   },
   created() {
     home()
       .then(res => {
-        this.articles = res.data.articles;
-        console.log(this.articles);
+        if (res.data.articles) {
+          this.articles = res.data.articles;
+          console.log(this.articles);
+          this.noData=false;
+        }else{
+          this.noData=true;
+        }
       })
       .catch(err => {
         console.error(err);
@@ -51,21 +57,21 @@ export default {
     appAdvancedSearchShared: AdvancedSearchShared
   },
   methods: {
-    search (data) {
+    search(data) {
       let payload = { searchText: data };
       let vm = this;
       globalSearch(payload)
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          vm.articles = res.data.articles;
-        } else if (res.data.messageCode === 'NO_ARTICLE_FOUND') {
-          vm.noArticleFound = true;
-          vm.articles = [];
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      })
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.articles = res.data.articles;
+          } else if (res.data.messageCode === "NO_ARTICLE_FOUND") {
+            vm.noArticleFound = true;
+            vm.articles = [];
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };

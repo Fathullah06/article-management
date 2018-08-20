@@ -26,19 +26,19 @@ export default {
       if (this.articleList) {
         articleListBlockArticle(this.id, { isUnBlocked: isOn })
           .then(res => {
-            debugger;
+            //debugger;
             console.log(res);
           })
           .catch(err => {
-            debugger;
+            //debugger;
             console.error(err);
           });
       } else {
         userListBlock(this.id, { status: isOn })
-          .then(res => {
+          .then(res => { //debugger;
             console.log(res);
           })
-          .catch(err => {
+          .catch(err => { //debugger;
             console.error(err);
           });
       }

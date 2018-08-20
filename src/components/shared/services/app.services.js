@@ -75,10 +75,9 @@ function createdArticles(data) {
 }
 
 function articleListBlockArticle(id, data) {
-  debugger;
-  return axios.post(GLOBAL['ADMIN_BLOCKED_ARTICLES'] + id, data);
+  return axios.patch(GLOBAL['ADMIN_BLOCKED_ARTICLES'] + id, data);
 }
-function advancedSearch (searchData) {
+function advancedSearch(searchData) {
   return axios.post(GLOBAL['SEARCH_ADVANCED'], searchData)
 }
 
