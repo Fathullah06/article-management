@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-          <app-advanced-search-shared :advancedSearchflag="true"></app-advanced-search-shared>
+          <app-advanced-search-shared @clicked="search" :advancedSearchflag="true"></app-advanced-search-shared>
         </div>
         <div v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
             <app-articles-list-shared
@@ -14,7 +14,7 @@
             </app-articles-list-shared>
         </div>
         <div v-else class="col-sm-12 col-md-12">
-            <p>loading</p>
+            <p>No article found !</p>
         </div>
         <div v-if="noArticle"  class="col-sm-12 col-md-12">
            <p><b>You have not created any articles!!!!</b></p>
@@ -26,39 +26,25 @@
 /* eslint-disable */
 import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "../shared/components/AdvancedSearchShared.vue";
-import { createdArticles } from "../shared/services/app.services";
+import {
+  advancedSearch,
+  createdArticles
+} from "../shared/services/app.services";
 import axios from "axios";
 export default {
   data() {
     return {
-      articles: [
-        {
-          article: {
-            articleName: "Article Title1",
-            description: "This is Article Body1",
-            comments: [],
-            _id: 0
-          }
-        },
-        {
-          article: {
-            articleName: "Article Title2",
-            description: "This is Article Body2",
-            comments: [],
-            _id: 1
-          }
-        }
-      ],
+      articles: [],
       homeErrors: [],
-      noArticle:false
+      noArticle: false
     };
   },
   created() {
     createdArticles()
       .then(res => {
         console.log(res);
-        if(res.data.message=='You have not created any article'){
-          this.noArticle=true;
+        if (res.data.message == "You have not created any article") {
+          this.noArticle = true;
         }
       })
       .catch(err => {
@@ -68,12 +54,26 @@ export default {
   components: {
     appArticlesListShared: ArticlesListShared,
     appAdvancedSearchShared: AdvancedSearchShared
+  },
+  methods: {
+    search(data) {
+      let vm = this;
+      advancedSearch(data)
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.articles = res.data.articles;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
 };
 </script>
 
 <style scoped>
-p{
+p {
   text-align: center;
 }
 </style>

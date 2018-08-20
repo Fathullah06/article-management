@@ -78,6 +78,10 @@ function articleListBlockArticle(id, data) {
   debugger;
   return axios.post(GLOBAL['ADMIN_BLOCKED_ARTICLES'] + id, data);
 }
+function advancedSearch (searchData) {
+  return axios.post(GLOBAL['SEARCH_ADVANCED'], searchData)
+}
+
 export {
   home,
   login,
@@ -97,5 +101,6 @@ export {
   myBlockedArticles,
   articlesListBlock,
   createdArticles,
-  articleListBlockArticle
+  articleListBlockArticle,
+  advancedSearch
 }
