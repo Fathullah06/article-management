@@ -10,7 +10,7 @@
                     data-toggle="tooltip" data-placement="bottom" title="Search Article">
                 <div v-if="advancedSearchflag" class="checkbox">
                     <md-checkbox  class="md-primary" @click="!byArticleTitle" v-model="byArticleTitle"><b> Article Title</b></md-checkbox>
-                    <md-checkbox  class="md-primary" @click="!byUserName" v-model="byUserName"> <b> User-name</b></md-checkbox>
+                    <md-checkbox  class="md-primary" @click="!byDescription" v-model="byDescription"> <b> Description </b></md-checkbox>
                     <md-checkbox  class="md-primary" @click="!byTags" v-model="byTags"> <b>Tags</b> </md-checkbox>
                 </div>
             </div>
@@ -30,7 +30,7 @@ export default {
     return {
       searchText: "",
       byArticleTitle: false,
-      byUserName: false,
+      byDescription: false,
       byTags: false,
     };
   },
@@ -38,11 +38,17 @@ export default {
   methods: {
     submit(event) {
       if (this.advancedSearchflag) {
-        return console.log({
+         console.log({
           searchText: this.searchText,
-          byArticleTitle: this.byArticleTitle,
-          byUserName: this.byUserName,
-          byTags: this.byTags
+          articleName: this.byArticleTitle,
+          description: this.byDescription,
+          tags: this.byTags
+        });
+        this.$emit('clicked', {
+          searchText: this.searchText,
+          articleName: this.byArticleTitle,
+          description: this.byDescription,
+          tags: this.byTags
         });
       } else {
         console.log('searchText : ' + this.searchText);

@@ -69,6 +69,11 @@ function articlesListBlock(data) {
 function globalSearch(searchText) {
   return axios.post(GLOBAL['SEARCH_GLOBAL'], searchText);
 }
+
+function advancedSearch (searchData) {
+  return axios.post(GLOBAL['SEARCH_ADVANCED'], searchData)
+}
+
 export {
   home,
   login,
@@ -86,6 +91,6 @@ export {
   userListBlock,
   myTrendingArticles,
   myBlockedArticles,
-  articlesListBlock
-
+  articlesListBlock,
+  advancedSearch
 }

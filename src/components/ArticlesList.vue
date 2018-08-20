@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-          <app-advanced-search-shared :advancedSearchflag="true"></app-advanced-search-shared>
+          <app-advanced-search-shared @clicked="search" :advancedSearchflag="true"></app-advanced-search-shared>
         </div>
         <div v-if="articles.length!=0" v-for="(article,i) in articles" :key="i">
             <app-articles-list-shared
@@ -16,7 +16,7 @@
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->
         </div>
         <div v-else class="col-sm-12 col-md-12">
-            <p>loading</p>
+            <p>No article found!</p>
         </div>
     </div>
 </template>
@@ -25,7 +25,7 @@
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "./shared/components/AdvancedSearchShared.vue";
-import { articlesListBlock } from "./shared/services/app.services";
+import { articlesListBlock, advancedSearch } from "./shared/services/app.services";
 export default {
   data() {
     return {
@@ -47,6 +47,20 @@ export default {
   components: {
     appArticlesListShared: ArticlesListShared,
     appAdvancedSearchShared: AdvancedSearchShared
+  },
+  methods: {
+    search (data) {
+      let vm = this;
+      advancedSearch(data)
+      .then(res => {
+        if (res.data.messageCode === 'OK') {
+          vm.articles = res.data.articles;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
   }
 };
 </script>
