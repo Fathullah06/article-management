@@ -74,6 +74,7 @@ export default {
             }
             console.log(this.article);
             console.log(this.radio);
+            this.article.isDraft = false;
             this.publishArticle(this.article);
         },
         publishArticle (data) {
@@ -93,6 +94,10 @@ export default {
             } else {
                 editArticle(this.$route.params.id, data)
                 .then(res => {
+                    if (res.data.messageCode === 'SAVED_SUCCESSFULLY') {
+                        vm.$snotify.success('Saved successfully!', 'Success');
+                        vm.$router.push({path: '/'});
+                    }
                 })
                 .catch(err => {
                     console.error(err);
