@@ -43,8 +43,12 @@ export default {
             vm.$store.dispatch('setRole', {role: res.data.data.role});
             vm.$cookie.set('token', res.data.data.token);
             vm.$cookie.set('role', res.data.data.role);
-            vm.$router.push({ path: "/dashboard" });
             vm.$snotify.success('Logged in successfully!', 'Success');
+            if (vm.$route.query.redirectUrl) {
+                vm.$router.push({ path: vm.$route.query.redirectUrl });
+            } else {
+                vm.$router.push({ path: "/dashboard" });
+            }
           } else if (res.data.messageCode === 'AUTHENTICATION_FAILED') {
               vm.$snotify.error('Username or Password invalid!', 'Error');
           }
@@ -53,6 +57,11 @@ export default {
           console.error(err);
         });
     }
+  },
+  created () {
+      if (this.$cookie.get('token') !== null) {
+          this.$router.push('/');
+      }
   }
 };
 </script>

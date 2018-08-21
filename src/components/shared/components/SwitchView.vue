@@ -26,23 +26,20 @@ export default {
       if (this.articleList) {
         articleListBlockArticle(this.id, { isUnBlocked: isOn })
           .then(res => {
-            //debugger;
             console.log(res);
           })
           .catch(err => {
-            //debugger;
             console.error(err);
           });
       } else {
         userListBlock(this.id, { status: isOn })
-          .then(res => { //debugger;
+          .then(res => {
             console.log(res);
           })
-          .catch(err => { //debugger;
+          .catch(err => {
             console.error(err);
           });
       }
-
       // console.log({ id: this.id, block: this.value });
     }
   }

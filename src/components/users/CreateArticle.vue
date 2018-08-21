@@ -82,7 +82,7 @@ export default {
                 delete vm.article.articleId;
                 createArticle(data)
                 .then(res => {
-                    if (res.data.message === 'SAVED_SUCCESSFULLY') {
+                    if (res.data.messageCode === 'SAVED_SUCCESSFULLY') {
                         vm.$snotify.success('Saved successfully!', 'Success');
                         vm.$router.push({path: '/'});
                     }

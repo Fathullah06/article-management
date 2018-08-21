@@ -97,7 +97,8 @@ export default {
         }
       }
       else {
-        this.$router.push({ path: '/login' });
+        console.log(this.$route.fullPath);
+        this.$router.push({ path: '/login', query: { redirectUrl: this.$route.fullPath } });
       }
     },
     dislike() {

@@ -13,12 +13,12 @@
                 :switchLabel="'Enable / Disable Article'">
             </app-articles-list-shared>
         </div>
-        <div v-else class="col-sm-12 col-md-12">
-            <p>No article found !</p>
+        <div v-if="articles.length==0" class="col-sm-12 col-md-12">
+            <h1>No article found !</h1>
         </div>
-        <div v-if="noArticle"  class="col-sm-12 col-md-12">
+        <!-- <div v-if="noArticle"  class="col-sm-12 col-md-12">
            <p><b>You have not created any articles!!!!</b></p>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -35,18 +35,18 @@ export default {
   data() {
     return {
       articles: [],
-      homeErrors: [],
-      noArticle: false
     };
   },
   created() {
+    let vm = this;
     createdArticles()
       .then(res => {
         console.log(res);
-        if (res.data.message) {
-          this.noArticle = true;
-        } else {
-          this.articles = res.data.articles;
+        if (res.data.messageCode === 'OK') {
+          vm.articles = res.data.articles;
+          
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+          vm.articles = [];
         }
       })
       .catch(err => {
