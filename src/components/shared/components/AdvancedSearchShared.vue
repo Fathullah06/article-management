@@ -49,7 +49,7 @@ export default {
             searchText: this.searchText,
             articleName: this.byArticleTitle,
             description: this.byDescription,
-            tags: this.byTags
+            tag: this.byTags
           });
         } else {
           console.log('searchText : ' + this.searchText);

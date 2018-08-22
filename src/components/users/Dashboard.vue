@@ -32,7 +32,7 @@
                     <app-articles-list-shared
                         :article="article"
                         :id=1
-                        :threeButtonFlag="true"
+                        :threeButtonFlag="false"
                         :switchComponentFlag="false"
                         :switchLabel="'Enable / Disable Article'">
                     </app-articles-list-shared>
@@ -71,6 +71,7 @@ export default {
       })
       .catch(err => {
           console.error(err);
+          alert('Something went wrong!!');
       });
 
       myBlockedArticles()
@@ -83,6 +84,7 @@ export default {
       })
       .catch(err => {
           console.error(err);
+          alert('Something went wrong!!');
       });
   }
 };

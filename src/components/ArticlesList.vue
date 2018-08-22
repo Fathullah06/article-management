@@ -63,6 +63,7 @@ export default {
       })
       .catch(err => {
         console.error(err);
+        alert('Something went wrong!!');
       });
     }
   }
