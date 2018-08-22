@@ -64,6 +64,8 @@ export default {
         .then(res => {
           if (res.data.messageCode === "OK") {
             vm.articles = res.data.articles;
+          } else if (res.data.messageCode === 'NO_ARTICLES') {
+            vm.articles = [];
           }
         })
         .catch(err => {
