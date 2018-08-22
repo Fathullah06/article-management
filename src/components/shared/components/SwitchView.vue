@@ -1,6 +1,6 @@
 <template>
     <div class="navbar-right">
-      <b v-if="role" style="margin: 10px 20px;">{{role}}</b>
+      <!-- <b v-if="role" style="margin: 10px 20px;">{{role}}</b> -->
         <div
           id="unblock"
           @click="switched(true)"

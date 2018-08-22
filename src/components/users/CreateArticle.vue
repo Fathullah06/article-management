@@ -48,98 +48,108 @@
 </template>
 
 <script>
-import {Article} from './article';
-import { createArticle, getArticleById, editArticle } from '../shared/services/app.services';
+/* eslint-disable */
+import { Article } from "./article";
+import {
+  createArticle,
+  getArticleById,
+  editArticle
+} from "../shared/services/app.services";
 export default {
-    data () {
-        let article = new Article();
-        return {
-            article,
-            radio: '',
-            edit: false
-        };
+  data() {
+    let article = new Article();
+    return {
+      article,
+      radio: "",
+      edit: false
+    };
+  },
+  methods: {
+    saveDraft() {
+      console.log("Save and make api call for draft");
+      this.article.isPublic = false;
+      this.article.isDraft = true;
+      this.publishArticle(this.article);
     },
-    methods: {
-        saveDraft () {
-            console.log('Save and make api call for draft');
-            this.article.isPublic = false;
-            this.article.isDraft = true;
-            this.publishArticle(this.article);
-        },
-        submit () {
-            if (this.radio === 'public') {
-                this.article.isPublic = true;
-            } else {
-                this.article.isPublic = false;
-            }
-            console.log(this.article);
-            console.log(this.radio);
-            this.article.isDraft = false;
-            this.publishArticle(this.article);
-        },
-        publishArticle (data) {
-            let vm = this;
-            if (!vm.edit) {
-                delete vm.article.articleId;
-                createArticle(data)
-                .then(res => {
-                    if (res.data.messageCode === 'SAVED_SUCCESSFULLY') {
-                        vm.$snotify.success('Saved successfully!', 'Success');
-                        vm.$router.push({path: '/'});
-                    } else if (res.data.messageCode === 'NOT_SAVED') {
-                        vm.$snotify.error('Not Saved!', 'Error');
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-            } else {
-                editArticle(this.$route.params.id, data)
-                .then(res => {
-                    if (res.data.messageCode === 'SAVED_SUCCESSFULLY') {
-                        vm.$snotify.success('Saved successfully!', 'Success');
-                        vm.$router.push({path: '/'});
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-            }
-        }
+    submit() {
+      if (this.radio === "public") {
+        this.article.isPublic = true;
+      } else {
+        this.article.isPublic = false;
+      }
+      console.log(this.article);
+      console.log(this.radio);
+      this.article.isDraft = false;
+      this.publishArticle(this.article);
     },
-    computed: {
-        validate () {
-            if (this.article.articleName === '' || this.article.description === '' || this.article.tag.length === 0) {
-                return true;
-            } else {
-                return false;
+    publishArticle(data) {
+      let vm = this;
+      if (!vm.edit) {
+        delete vm.article.articleId;
+        createArticle(data)
+          .then(res => {
+            if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
+              vm.$snotify.success("Saved successfully!", "Success");
+              vm.$router.push({ path: "/" });
+            } else if (res.data.messageCode === "NOT_SAVED") {
+              vm.$snotify.error("Not Saved!", "Error");
+            } else if (res.data.messageCode === "YOU_ARE_BLOCKED") {
+              vm.$snotify.error("You are Blocked User", "Error");
+              vm.$router.push({ path: "/" });
             }
-        }
-    },
-    created () {
-        let vm = this;
-        if (this.$route.params.id) {
-            vm.edit = true;
-            getArticleById(this.$route.params.id)
-            .then(res => {
-                if (res.data.messageCode === 'OK') {
-                    vm.article = res.data.article;
-                    if (res.data.article.isPublic) {
-                        vm.radio = 'public';
-                    } else if (!(res.data.article.isPublic)) {
-                        vm.radio = 'private';
-                    }
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
-        }
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        editArticle(this.$route.params.id, data)
+          .then(res => {
+            if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
+              vm.$snotify.success("Saved successfully!", "Success");
+              vm.$router.push({ path: "/" });
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
     }
+  },
+  computed: {
+    validate() {
+      if (
+        this.article.articleName === "" ||
+        this.article.description === "" ||
+        this.article.tag.length === 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+  created() {
+    let vm = this;
+    if (this.$route.params.id) {
+      vm.edit = true;
+      getArticleById(this.$route.params.id)
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.article = res.data.article;
+            if (res.data.article.isPublic) {
+              vm.radio = "public";
+            } else if (!res.data.article.isPublic) {
+              vm.radio = "private";
+            }
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
 };
-
 </script>
 
 <style>
-
 </style>

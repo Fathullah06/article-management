@@ -15,8 +15,8 @@
             </app-articles-list-shared>
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->
         </div>
-        <div v-else class="col-sm-12 col-md-12">
-            <p>No article found!</p>
+        <div v-if="articlesFlag" class="col-sm-12 col-md-12">
+            <h1>No article found !</h1>
         </div>
     </div>
 </template>
@@ -25,27 +25,32 @@
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "./shared/components/AdvancedSearchShared.vue";
-import { articlesListBlock, advancedSearch } from "./shared/services/app.services";
+import {
+  articlesListBlock,
+  advancedSearch
+} from "./shared/services/app.services";
 export default {
   data() {
     return {
       articles: null,
-      homeErrors: []
+      homeErrors: [],
+      articlesFlag: false
     };
   },
   created() {
     let vm = this;
     articlesListBlock()
       .then(res => {
-        if (res.data.messageCode === 'OK') {
+        if (res.data.messageCode === "OK") {
           vm.articles = res.data.article;
           console.log(res.data.article);
-        } else if (res.data.messageCode === 'NO_ARTICLES') {
+        } else if (res.data.messageCode === "NO_ARTICLES") {
           vm.articles = [];
         }
       })
       .catch(err => {
         console.error(err);
+        alert("Something went wrong!!");
       });
   },
   components: {
@@ -53,18 +58,20 @@ export default {
     appAdvancedSearchShared: AdvancedSearchShared
   },
   methods: {
-    search (data) {
+    search(data) {
       let vm = this;
       advancedSearch(data)
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          vm.articles = res.data.articles;
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Something went wrong!!');
-      });
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.articles = res.data.articles;
+          } else if (res.data.messageCode === "NO_ARTICLES") {
+            vm.articles = [];
+            this.articlesFlag = true;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };
