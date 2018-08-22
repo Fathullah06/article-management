@@ -13,7 +13,7 @@
                     <label for="description">
                         Description
                     </label>
-                    <textarea class="form-control" rows="3" type="text" name="description" v-model="article.description" v-validate="'required'"> </textarea>
+                    <textarea class="form-control" rows="3" type="text" name="description" data-vv-validate-on="blur" v-model="article.description" v-validate="'required'"> </textarea>
                     <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
                 </div>
                 <div class="form-group">
@@ -86,6 +86,8 @@ export default {
                     if (res.data.messageCode === 'SAVED_SUCCESSFULLY') {
                         vm.$snotify.success('Saved successfully!', 'Success');
                         vm.$router.push({path: '/'});
+                    } else if (res.data.messageCode === 'NOT_SAVED') {
+                        vm.$snotify.error('Not Saved!', 'Error');
                     }
                 })
                 .catch(err => {

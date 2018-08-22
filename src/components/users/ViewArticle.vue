@@ -4,10 +4,10 @@
             <app-articles-list-shared
                 :article="article"
                 :id="article.article._id"
-                :threeButtonFlag="true"
+                :threeButtonFlag="draftFlag"
                 :twoButtonFlag="true"
                 :switchComponentFlag="false"
-                :commentsFlag="true"
+                :commentsFlag="draftFlag"
                 :switchLabel="'Enable / Disable Article'">
             </app-articles-list-shared>
             <!-- <app-three-button-shared :id="i"></app-three-button-shared> -->
@@ -23,7 +23,8 @@ export default {
         return {
             article: {
             },
-            displayArticle: false
+            displayArticle: false,
+            draftFlag: true
         };
     },
     components: {
@@ -31,6 +32,9 @@ export default {
     },
     created () {
         let vm = this;
+        if (vm.$route.query.viewDraft) {
+            vm.draftFlag = false;
+        }
         console.log('Make api call for view article using route param id');
         viewArticle(this.$route.params.id)
         .then(res => {

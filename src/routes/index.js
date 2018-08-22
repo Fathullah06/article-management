@@ -46,6 +46,7 @@ export const routes = [{
   },
   {
     path: '/draftArticles',
-    component: DraftArticles
+    component: DraftArticles,
+    name: 'drafts'
   }
 ];
