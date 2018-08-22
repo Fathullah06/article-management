@@ -37,22 +37,27 @@ export default {
   props:["advancedSearchflag"],
   methods: {
     submit(event) {
-      if (this.advancedSearchflag) {
-         console.log({
-          searchText: this.searchText,
-          articleName: this.byArticleTitle,
-          description: this.byDescription,
-          tags: this.byTags
-        });
-        this.$emit('clicked', {
-          searchText: this.searchText,
-          articleName: this.byArticleTitle,
-          description: this.byDescription,
-          tags: this.byTags
-        });
+      if (this.$cookie.get('token') !== null) {
+          if (this.advancedSearchflag) {
+          console.log({
+            searchText: this.searchText,
+            articleName: this.byArticleTitle,
+            description: this.byDescription,
+            tags: this.byTags
+          });
+          this.$emit('clicked', {
+            searchText: this.searchText,
+            articleName: this.byArticleTitle,
+            description: this.byDescription,
+            tags: this.byTags
+          });
+        } else {
+          console.log('searchText : ' + this.searchText);
+          this.$emit('clicked', this.searchText);
+        } 
       } else {
-        console.log('searchText : ' + this.searchText);
-        this.$emit('clicked', this.searchText);
+        this.$snotify.info('Logged in required!');
+        this.$router.push({path: '/login'})
       }
     }
   }
