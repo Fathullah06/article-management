@@ -17,9 +17,9 @@
         <div v-if="noArticleFound">
           <h1>No Article Found!</h1>
         </div>
-        <!-- <div v-if="articles.length==0" class="col-sm-12 col-md-12">
+        <div v-if="articles.length==0 && !noArticleFound" class="col-sm-12 col-md-12">
             <p><md-progress-spinner md-mode="indeterminate"></md-progress-spinner></p>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -49,7 +49,8 @@ export default {
         }
       })
       .catch(err => {
-        console.error(err);
+        // console.error(err);
+        vm.noArticleFound = true;
       });
   },
   components: {
