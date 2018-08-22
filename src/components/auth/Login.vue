@@ -6,7 +6,7 @@
                     <label for="username">
                         Username
                     </label>
-                    <input class="form-control" type="text" name="username" v-model="username" v-validate="'required'">
+                    <input class="form-control" type="text" name="username" data-vv-validate-on="blur" v-model="username" v-validate="'required'">
                     <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
                 </div>
 
@@ -14,7 +14,7 @@
                     <label for="password">
                         Password
                     </label>
-                <input type="password" class="form-control" name="password" v-model="password" v-validate="'required|min:6'" >
+                <input type="password" class="form-control" name="password" data-vv-validate-on="blur" v-model="password" v-validate="'required|min:6'" >
                 <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
                 </div>
                 <button class="btn bg-dark" :disabled="errors.any() || username.lenght == 0 || password.length == 0" type="button" @click="submit" >Login</button>
