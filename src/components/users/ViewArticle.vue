@@ -16,41 +16,42 @@
 </template>
 
 <script>
-import ArticlesListShared from '../shared/components/ArticlesListShared.vue';
-import { viewArticle } from '../shared/services/app.services';
+/* eslint-disable */
+import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
+import { viewArticle } from "../shared/services/app.services";
 export default {
-    data () {
-        return {
-            article: {
-            },
-            displayArticle: false,
-            draftFlag: true
-        };
-    },
-    components: {
-        appArticlesListShared: ArticlesListShared
-    },
-    created () {
-        let vm = this;
-        if (vm.$route.query.viewDraft) {
-            vm.draftFlag = false;
-        }
-        console.log('Make api call for view article using route param id');
-        viewArticle(this.$route.params.id)
-        .then(res => {
-            if (res.data.messageCode === 'OK') {
-                vm.displayArticle = true;
-                vm.article.article = res.data.article;
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Something went wrong!!');
-        });
+  data() {
+    return {
+      article: {},
+      displayArticle: false,
+      draftFlag: true
+    };
+  },
+  components: {
+    appArticlesListShared: ArticlesListShared
+  },
+  created() {
+    let vm = this;
+    if (vm.$route.query.viewDraft || vm.$route.query.isBlocked) {
+      vm.draftFlag = false;
     }
+    // if (vm.$route.query.isBlocked) {
+    //   vm.draftFlag = false;
+    // }
+    console.log("Make api call for view article using route param id");
+    viewArticle(this.$route.params.id)
+      .then(res => {
+        if (res.data.messageCode === "OK") {
+          vm.displayArticle = true;
+          vm.article.article = res.data.article;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 };
 </script>
 
 <style scoped>
-
 </style>

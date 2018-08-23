@@ -49,7 +49,8 @@ export default {
     "switchComponentFlag",
     "switchLabel",
     "commentsFlag",
-    "articleList"
+    "articleList",
+    "isBlocked"
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,
@@ -61,7 +62,11 @@ export default {
         if (this.$cookie.get('token') || this.$store.getters.getToken !== '') {
             if (this.$route.name === 'drafts') { 
                 this.$router.push({path: '/viewArticle/' +  this.article.article._id, query: {viewDraft: this.$route.name}});
-            } else {
+            }
+            else if(this.$route.name==='dashboard' && this.isBlocked){
+                this.$router.push({path: '/viewArticle/' +  this.article.article._id, query: {isBlocked:this.isBlocked}});
+            }
+            else {
                 this.$router.push({path: '/viewArticle/' +  this.article.article._id});
             }
         } else {
