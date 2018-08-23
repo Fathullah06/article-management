@@ -33,6 +33,7 @@
                         :article="article"
                         :id=1
                         :threeButtonFlag="false"
+                        :isBlocked='true'
                         :switchComponentFlag="false"
                         :switchLabel="'Enable / Disable Article'">
                     </app-articles-list-shared>

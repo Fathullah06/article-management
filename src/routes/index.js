@@ -9,44 +9,45 @@ import ViewArticle from '../components/users/ViewArticle.vue';
 import DraftArticles from '../components/users/DraftArticles.vue';
 
 export const routes = [{
-    path: '/',
-    component: Home
-  },
-  {
-    path: '/login',
-    component: Login
-  },
-  {
-    path: '/articlesList',
-    component: ArticlesList
-  },
-  {
-    path: '/usersList',
-    component: UsersList
-  },
-  {
-    path: '/createArticle',
-    component: CreateArticle
-  },
-  {
-    path: '/editArticle/:id',
-    component: CreateArticle
-  },
-  {
-    path: '/createdArticles',
-    component: CreatedArticles
-  },
-  {
-    path: '/dashboard',
-    component: Dashboard
-  },
-  {
-    path: '/viewArticle/:id',
-    component: ViewArticle
-  },
-  {
-    path: '/draftArticles',
-    component: DraftArticles,
-    name: 'drafts'
-  }
+  path: '/',
+  component: Home
+},
+{
+  path: '/login',
+  component: Login
+},
+{
+  path: '/articlesList',
+  component: ArticlesList
+},
+{
+  path: '/usersList',
+  component: UsersList
+},
+{
+  path: '/createArticle',
+  component: CreateArticle
+},
+{
+  path: '/editArticle/:id',
+  component: CreateArticle
+},
+{
+  path: '/createdArticles',
+  component: CreatedArticles
+},
+{
+  path: '/dashboard',
+  component: Dashboard,
+  name: 'dashboard'
+},
+{
+  path: '/viewArticle/:id',
+  component: ViewArticle
+},
+{
+  path: '/draftArticles',
+  component: DraftArticles,
+  name: 'drafts'
+}
 ];
