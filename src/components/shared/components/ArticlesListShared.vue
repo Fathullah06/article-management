@@ -15,7 +15,10 @@
             <div v-if="commentsFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
-                    <p class="list-group-item">{{comment.comment}}</p>
+                    <div class="list-group-item">
+                        <p class="nav nav-pills nav-left">{{comment.comment}}</p>
+                        <app-two-button-shared :id='comment._id' :comment="true"></app-two-button-shared>
+                    </div>
                 </div>
                 <div v-if="comments.length==0">
                     <p class="list-group-item">No comments...</p>
@@ -39,9 +42,9 @@ export default {
       dislikes: this.article.article.disLike
     };
   },
-    // created() {
-    //   console.log(this.article.article.disLike);
-    // },
+  // created() {
+  //   console.log(this.article.article.disLike);
+  // },
   props: [
     "article",
     "threeButtonFlag",
@@ -58,21 +61,27 @@ export default {
     appTwoButtonShared: TwoButtonShared
   },
   methods: {
-      viewArticle () {
-        if (this.$cookie.get('token') || this.$store.getters.getToken !== '') {
-            if (this.$route.name === 'drafts') { 
-                this.$router.push({path: '/viewArticle/' +  this.article.article._id, query: {viewDraft: this.$route.name}});
-            }
-            else if(this.$route.name==='dashboard' && this.isBlocked){
-                this.$router.push({path: '/viewArticle/' +  this.article.article._id, query: {isBlocked:this.isBlocked}});
-            }
-            else {
-                this.$router.push({path: '/viewArticle/' +  this.article.article._id});
-            }
+    viewArticle() {
+      if (this.$cookie.get("token") || this.$store.getters.getToken !== "") {
+        if (this.$route.name === "drafts") {
+          this.$router.push({
+            path: "/viewArticle/" + this.article.article._id,
+            query: { viewDraft: this.$route.name }
+          });
+        } else if (this.$route.name === "dashboard" && this.isBlocked) {
+          this.$router.push({
+            path: "/viewArticle/" + this.article.article._id,
+            query: { isBlocked: this.isBlocked }
+          });
         } else {
-            this.$router.push({path: '/login'});
+          this.$router.push({
+            path: "/viewArticle/" + this.article.article._id
+          });
         }
+      } else {
+        this.$router.push({ path: "/login" });
       }
+    }
   }
 };
 </script>

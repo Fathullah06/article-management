@@ -7,6 +7,7 @@ import CreatedArticles from '../components/users/CreatedArticles.vue';
 import Dashboard from '../components/users/Dashboard.vue';
 import ViewArticle from '../components/users/ViewArticle.vue';
 import DraftArticles from '../components/users/DraftArticles.vue';
+import BookmarkedArticles from '../components/users/BookmarkedArticles.vue';
 
 export const routes = [{
   path: '/',
@@ -49,5 +50,10 @@ export const routes = [{
   path: '/draftArticles',
   component: DraftArticles,
   name: 'drafts'
+},
+{
+  path: '/bookmarkedArticles',
+  component: BookmarkedArticles,
+  name: 'bookmarked'
 }
 ];

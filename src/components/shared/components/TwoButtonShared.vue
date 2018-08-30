@@ -23,7 +23,7 @@
 
 <script>
 /* eslint-disable */
-import { deleteArticle } from '../services/app.services'
+import { deleteArticle } from "../services/app.services";
 export default {
   data() {
     return {
@@ -31,27 +31,35 @@ export default {
       deleteFlag: false
     };
   },
-  props: ["id"],
+  props: ["id", "comment"],
   methods: {
     edit() {
-      console.log("Edit Article: " + this.id);
-      this.$router.push({path: '/editArticle/' + this.id});
+      if (this.comment) {
+        console.log("Edit Comment: " + this.id);
+      } else {
+        console.log("Edit Article: " + this.id);
+        this.$router.push({ path: "/editArticle/" + this.id });
+      }
     },
     delete1() {
       let vm = this;
-      console.log("Delete Article: " + this.id);
-      deleteArticle(this.id)
-      .then(res => {
-        if (res.data.messageCode === 'DELETED') {
-          console.log('Deleted Successfully');
-          vm.$snotify.success('Deleted successfully!', 'Success');
-          vm.$router.push({path: '/dashboard'});
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Something went wrong!!');
-      });
+      if (vm.comment) {
+        console.log("Delete Comment: " + this.id);
+      } else {
+        console.log("Delete Article: " + this.id);
+        deleteArticle(this.id)
+          .then(res => {
+            if (res.data.messageCode === "DELETED") {
+              console.log("Deleted Successfully");
+              vm.$snotify.success("Deleted successfully!", "Success");
+              vm.$router.push({ path: "/dashboard" });
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Something went wrong!!");
+          });
+      }
     }
   }
 };

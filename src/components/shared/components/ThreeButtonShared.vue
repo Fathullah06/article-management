@@ -20,6 +20,16 @@
               </span>
             </li>
             <div class="navbar-right">
+                <li @click="bookmarkClick">
+                  <span id="bookmarkFlag"
+                    v-bind:class="{ active: bookmarkFlag }"
+                    class="glyphicon glyphicon-bookmark"
+                    aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="Bookmark">
+                  </span>
+                </li>
+            </div>
+            <div class="navbar-right">
                 <li @click="commentClick">
                   <span id="commentFlag"
                     v-bind:class="{ active: commentFlag }"
@@ -56,6 +66,7 @@ export default {
       dislikeCounter: this.dislikes,
       likeFlag: false,
       dislikeFlag: false,
+      bookmarkFlag: false,
       commentFlag: false,
       comment: "",
       login: true
@@ -73,7 +84,10 @@ export default {
   },
   methods: {
     like() {
-      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+      if (
+        this.$cookie.get("token") !== null ||
+        this.$store.getters.getToken !== ""
+      ) {
         if (this.likeFlag == true) {
           return;
         } else {
@@ -93,16 +107,21 @@ export default {
             })
             .catch(err => {
               console.error(err);
-          });
+            });
         }
-      }
-      else {
+      } else {
         console.log(this.$route.fullPath);
-        this.$router.push({ path: '/login', query: { redirectUrl: this.$route.fullPath } });
+        this.$router.push({
+          path: "/login",
+          query: { redirectUrl: this.$route.fullPath }
+        });
       }
     },
     dislike() {
-      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+      if (
+        this.$cookie.get("token") !== null ||
+        this.$store.getters.getToken !== ""
+      ) {
         if (this.dislikeFlag == true) {
           return;
         } else {
@@ -121,17 +140,31 @@ export default {
             })
             .catch(err => {
               console.error(err);
-          });
+            });
         }
       } else {
-          this.$router.push({ path: '/login' });
+        this.$router.push({ path: "/login" });
+      }
+    },
+    bookmarkClick() {
+      if (
+        this.$cookie.get("token") !== null ||
+        this.$store.getters.getToken !== ""
+      ) {
+        this.bookmarkFlag = !this.bookmarkFlag;
+        console.log(this.bookmarkFlag);
+      } else {
+        this.$router.push({ path: "/login" });
       }
     },
     commentClick() {
-      if (this.$cookie.get('token') !== null || this.$store.getters.getToken !== '') {
+      if (
+        this.$cookie.get("token") !== null ||
+        this.$store.getters.getToken !== ""
+      ) {
         this.commentFlag = !this.commentFlag;
       } else {
-          this.$router.push({ path: '/login' });
+        this.$router.push({ path: "/login" });
       }
     },
     sendComment() {
@@ -139,14 +172,18 @@ export default {
         id: this.id,
         comment: this.comment
       });
-      this.comments.push({comment:this.comment});
-      commentOnArticle(this.id, {comment:this.comment}, this.$store.getters.getToken)
+      this.comments.push({ comment: this.comment });
+      commentOnArticle(
+        this.id,
+        { comment: this.comment },
+        this.$store.getters.getToken
+      )
         .then(res => {
           console.log(res.data);
         })
         .catch(err => {
           console.error(err);
-          alert('Something went wrong!!');
+          alert("Something went wrong!!");
         });
       this.comment = "";
     }
@@ -171,5 +208,10 @@ span {
 #commentFlag:hover,
 #commentFlag.active {
   color: rgb(138, 93, 34);
+}
+#bookmarkFlag:hover,
+#bookmarkFlag.active {
+  /* color: rgb(91, 80, 251); */
+  color: #337ab7;
 }
 </style>
