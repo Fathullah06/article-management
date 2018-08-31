@@ -18,12 +18,16 @@
               </span>
             </li>
         </ul>
+        <div v-if="editFlag">
+            <app-add-comment-form :id="id" :commentFlag="comment" :commentData="commentData"></app-add-comment-form>
+        </div>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
 import { deleteArticle } from "../services/app.services";
+import AddCommentForm from "./AddCommentForm.vue";
 export default {
   data() {
     return {
@@ -31,10 +35,14 @@ export default {
       deleteFlag: false
     };
   },
-  props: ["id", "comment"],
+  props: ["id", "comment","commentData"],
+  components: {
+    appAddCommentForm: AddCommentForm
+  },
   methods: {
     edit() {
       if (this.comment) {
+        this.editFlag=!this.editFlag;
         console.log("Edit Comment: " + this.id);
       } else {
         console.log("Edit Article: " + this.id);

@@ -41,13 +41,14 @@
             </div>
         </ul>
         <div v-if="commentFlag">
-            <form @submit.prevent="sendComment">
+            <!-- <form @submit.prevent="sendComment">
                 <label>
                     Comment
                 </label>
                 <textarea v-model="comment" cols="30" rows="1"></textarea>
                 <button :disabled="!comment" type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </form> -->
+            <app-add-comment-form :id="id"></app-add-comment-form>
         </div>
     </div>
 </template>
@@ -59,6 +60,7 @@ import {
   dislikeArticle,
   commentOnArticle
 } from "../services/app.services";
+import AddCommentForm from "./AddCommentForm.vue";
 export default {
   data() {
     return {
@@ -68,11 +70,14 @@ export default {
       dislikeFlag: false,
       bookmarkFlag: false,
       commentFlag: false,
-      comment: "",
+      // comment: "",
       login: true
     };
   },
   computed: {},
+  components: {
+    appAddCommentForm: AddCommentForm
+  },
   props: ["id", "likes", "dislikes", "comments"],
   created() {
     if (
@@ -101,9 +106,14 @@ export default {
           // return this.counter++;
           likeArticle(this.id, this.$store.getters.getToken)
             .then(res => {
-              this.likeCounter = res.data.likes.like;
-              // console.log(res.data.likes.like);
-              return this.likeCounter;
+              if (res.data.messageCode === "ALREADY_LIKED") {
+                // alert("Already Liked");
+                this.$snotify.info("Already Liked!", "Info");
+              } else {
+                this.likeCounter = res.data.likes.like;
+                // console.log(res.data.likes.like);
+                return this.likeCounter;
+              }
             })
             .catch(err => {
               console.error(err);
@@ -135,8 +145,13 @@ export default {
           // return this.counter--;
           dislikeArticle(this.id, this.$store.getters.getToken)
             .then(res => {
-              this.dislikeCounter = res.data.dislikes.disLike;
-              // console.log(res.data.dislikes.disLike);
+              if (res.data.messageCode === "ALREADY_DISLIKED") {
+                // alert("Already Disliked");
+                this.$snotify.info("Already Disliked!", "Info");
+              } else {
+                this.dislikeCounter = res.data.dislikes.disLike;
+                // console.log(res.data.dislikes.disLike);
+              }
             })
             .catch(err => {
               console.error(err);
@@ -166,27 +181,27 @@ export default {
       } else {
         this.$router.push({ path: "/login" });
       }
-    },
-    sendComment() {
-      console.log({
-        id: this.id,
-        comment: this.comment
-      });
-      this.comments.push({ comment: this.comment });
-      commentOnArticle(
-        this.id,
-        { comment: this.comment },
-        this.$store.getters.getToken
-      )
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.error(err);
-          alert("Something went wrong!!");
-        });
-      this.comment = "";
     }
+    // sendComment() {
+    //   console.log({
+    //     id: this.id,
+    //     comment: this.comment
+    //   });
+    //   this.comments.push({ comment: this.comment });
+    //   commentOnArticle(
+    //     this.id,
+    //     { comment: this.comment },
+    //     this.$store.getters.getToken
+    //   )
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //       alert("Something went wrong!!");
+    //     });
+    //   this.comment = "";
+    // }
   }
 };
 </script>

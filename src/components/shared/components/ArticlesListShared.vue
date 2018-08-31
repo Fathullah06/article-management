@@ -17,7 +17,7 @@
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
                     <div class="list-group-item">
                         <p class="nav nav-pills nav-left">{{comment.comment}}</p>
-                        <app-two-button-shared :id='comment._id' :comment="true"></app-two-button-shared>
+                        <app-two-button-shared :id='comment._id' :comment="true" :commentData="comment.comment"></app-two-button-shared>
                     </div>
                 </div>
                 <div v-if="comments.length==0">
