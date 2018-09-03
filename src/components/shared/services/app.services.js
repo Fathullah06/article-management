@@ -90,6 +90,10 @@ function getBookmarkedArticles(data) {
   return axios.get(GLOBAL['GET_BOOKMARKED_ARTICLES'], data);
 }
 
+function deleteComment(id, commentId) {
+  return axios.delete(GLOBAL['DELETE_COMMENT'] + id, { data: commentId })
+}
+
 export {
   home,
   login,
@@ -112,5 +116,6 @@ export {
   articleListBlockArticle,
   advancedSearch,
   bookmarkedArticle,
-  getBookmarkedArticles
+  getBookmarkedArticles,
+  deleteComment
 }

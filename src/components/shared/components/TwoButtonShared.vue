@@ -26,7 +26,7 @@
 
 <script>
 /* eslint-disable */
-import { deleteArticle } from "../services/app.services";
+import { deleteArticle, deleteComment } from "../services/app.services";
 import AddCommentForm from "./AddCommentForm.vue";
 export default {
   data() {
@@ -35,14 +35,14 @@ export default {
       deleteFlag: false
     };
   },
-  props: ["id", "comment","commentData"],
+  props: ["id", "commentId", "comment", "commentData"],
   components: {
     appAddCommentForm: AddCommentForm
   },
   methods: {
     edit() {
       if (this.comment) {
-        this.editFlag=!this.editFlag;
+        this.editFlag = !this.editFlag;
         console.log("Edit Comment: " + this.id);
       } else {
         console.log("Edit Article: " + this.id);
@@ -52,7 +52,23 @@ export default {
     delete1() {
       let vm = this;
       if (vm.comment) {
-        console.log("Delete Comment: " + this.id);
+        console.log("Delete Comment: " + vm.commentId);
+        const data = {
+          commentId: vm.commentId
+        };
+        deleteComment(vm.id, data)
+          .then(res => {
+            if (res.data.messageCode === "DELETED") {
+              console.log("Deleted Successfully");
+              console.log(res);
+              vm.$snotify.success("Deleted successfully!", "Success");
+              // vm.$router.push({ path: "/" });
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Something went wrong!!");
+          });
       } else {
         console.log("Delete Article: " + this.id);
         deleteArticle(this.id)
