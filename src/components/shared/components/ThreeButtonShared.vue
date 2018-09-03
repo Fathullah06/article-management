@@ -48,7 +48,7 @@
                 <textarea v-model="comment" cols="30" rows="1"></textarea>
                 <button :disabled="!comment" type="submit" class="btn btn-primary">Submit</button>
             </form> -->
-            <app-add-comment-form :id="id" :comments="comments"></app-add-comment-form>
+            <app-add-comment-form @sendComment="send" :id="id" :comments="comments"></app-add-comment-form>
         </div>
     </div>
 </template>
@@ -109,7 +109,7 @@ export default {
             .then(res => {
               if (res.data.messageCode === "ALREADY_LIKED") {
                 // alert("Already Liked");
-                this.$snotify.info("Already Liked!", "Info");
+                this.$snotify.info("You have already liked this article!");
               } else {
                 this.likeCounter = res.data.likes.like;
                 // console.log(res.data.likes.like);
@@ -148,7 +148,7 @@ export default {
             .then(res => {
               if (res.data.messageCode === "ALREADY_DISLIKED") {
                 // alert("Already Disliked");
-                this.$snotify.info("Already Disliked!", "Info");
+                this.$snotify.info("You have already disliked this article!");
               } else {
                 this.dislikeCounter = res.data.dislikes.disLike;
                 // console.log(res.data.dislikes.disLike);
@@ -192,27 +192,10 @@ export default {
       } else {
         this.$router.push({ path: "/login" });
       }
+    },
+    send (data) {
+      this.$emit('sendComment', data);
     }
-    // sendComment() {
-    //   console.log({
-    //     id: this.id,
-    //     comment: this.comment
-    //   });
-    //   this.comments.push({ comment: this.comment });
-    //   commentOnArticle(
-    //     this.id,
-    //     { comment: this.comment },
-    //     this.$store.getters.getToken
-    //   )
-    //     .then(res => {
-    //       console.log(res.data);
-    //     })
-    //     .catch(err => {
-    //       console.error(err);
-    //       alert("Something went wrong!!");
-    //     });
-    //   this.comment = "";
-    // }
   }
 };
 </script>

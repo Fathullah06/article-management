@@ -8,7 +8,7 @@
                 {{article.article.description}}
             </div>
             <div class="panel-footer">
-                <app-three-button-shared v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
+                <app-three-button-shared @sendComment="send" v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
                 <app-switch-component v-if="switchComponentFlag" :status="article.article.isUnBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
@@ -33,6 +33,7 @@
 import ThreeButtonShared from "./ThreeButtonShared.vue";
 import SwitchComponent from "./SwitchComponent.vue";
 import TwoButtonShared from "./TwoButtonShared";
+import { commentOnArticle } from '../services/app.services';
 export default {
   data() {
     return {
@@ -81,6 +82,23 @@ export default {
       } else {
         this.$router.push({ path: "/login" });
       }
+    },
+    send (data) {
+      console.log(data);
+      let vm = this;
+      commentOnArticle(
+        data.id,
+        { comment: data.comment },
+      )
+        .then(res => {
+          if (res.data.messageCode === 'OK') {
+            vm.comments = res.data.data.comments;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Something went wrong!!");
+        });
     }
   }
 };

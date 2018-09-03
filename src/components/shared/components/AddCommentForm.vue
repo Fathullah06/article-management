@@ -31,11 +31,11 @@ export default {
         id: this.id,
         comment: this.comment
       });
-      this.comments.push({ comment: this.comment });
-      commentOnArticle(
+      // this.comments.push({ comment: this.comment });
+      this.$emit('sendComment', { comment: this.comment, id: this.id });
+      /* commentOnArticle(
         this.id,
         { comment: this.comment },
-        this.$store.getters.getToken
       )
         .then(res => {
           console.log(res.data);
@@ -44,7 +44,7 @@ export default {
           console.error(err);
           alert("Something went wrong!!");
         });
-      this.comment = "";
+      this.comment = ""; */
     }
   }
 };
