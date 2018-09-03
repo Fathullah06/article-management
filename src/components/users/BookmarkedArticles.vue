@@ -4,7 +4,7 @@
             <app-articles-list-shared
                 :article="article"
                 :id='i'
-                :threeButtonFlag="true"
+                :threeButtonFlag="false"
                 :twoButtonFlag="false"
                 :switchComponentFlag="false"
                 :switchLabel="'Enable / Disable Article'">

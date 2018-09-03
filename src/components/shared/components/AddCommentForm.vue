@@ -33,6 +33,7 @@ export default {
       });
       // this.comments.push({ comment: this.comment });
       this.$emit('sendComment', { comment: this.comment, id: this.id });
+      this.comment = "";
       /* commentOnArticle(
         this.id,
         { comment: this.comment },

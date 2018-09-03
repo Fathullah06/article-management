@@ -53,22 +53,23 @@ export default {
       let vm = this;
       if (vm.comment) {
         console.log("Delete Comment: " + vm.commentId);
-        const data = {
-          commentId: vm.commentId
-        };
-        deleteComment(vm.id, data)
-          .then(res => {
-            if (res.data.messageCode === "DELETED") {
-              console.log("Deleted Successfully");
-              console.log(res);
-              vm.$snotify.success("Deleted successfully!", "Success");
-              // vm.$router.push({ path: "/" });
-            }
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Something went wrong!!");
-          });
+        // const data = {
+        //   commentId: vm.commentId
+        // };
+        // deleteComment(vm.id, data)
+        //   .then(res => {
+        //     if (res.data.messageCode === "DELETED") {
+        //       console.log("Deleted Successfully");
+        //       console.log(res);
+        //       vm.$snotify.success("Deleted successfully!", "Success");
+        //       // vm.$router.push({ path: "/" });
+        this.$emit("deleteComment", { id: this.id, commentId: this.commentId });
+        //   }
+        // })
+        // .catch(err => {
+        //   console.error(err);
+        //   alert("Something went wrong!!");
+        // });
       } else {
         console.log("Delete Article: " + this.id);
         deleteArticle(this.id)

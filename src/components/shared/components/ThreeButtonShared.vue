@@ -79,13 +79,26 @@ export default {
   components: {
     appAddCommentForm: AddCommentForm
   },
-  props: ["id", "likes", "dislikes", "comments"],
+  props: [
+    "id",
+    "likes",
+    "dislikes",
+    "comments",
+    "isLiked",
+    "isDisLiked",
+    "isSaved"
+  ],
   created() {
     if (
       this.$cookie.get("token") === "" ||
       this.$store.getters.getToken === ""
     ) {
       this.login = false;
+    } else {
+      this.likeFlag = this.isLiked;
+      this.dislikeFlag = this.isDisLiked;
+      // console.log(this.isLiked);
+      this.bookmarkFlag = this.isSaved;
     }
   },
   methods: {
@@ -95,10 +108,10 @@ export default {
         this.$store.getters.getToken !== ""
       ) {
         if (this.likeFlag == true) {
-          return;
+          this.$snotify.info("You have already liked this article!");
         } else {
           this.likeFlag = true;
-          this.dislikeFlag = false;
+          // this.dislikeFlag = false;
           // console.log({
           //   id: this.id,
           //   like: this.likeFlag,
@@ -134,10 +147,10 @@ export default {
         this.$store.getters.getToken !== ""
       ) {
         if (this.dislikeFlag == true) {
-          return;
+          this.$snotify.info("You have already disliked this article!");
         } else {
           this.dislikeFlag = true;
-          this.likeFlag = false;
+          // this.likeFlag = false;
           // console.log({
           //   id: this.id,
           //   like: this.likeFlag,
@@ -193,8 +206,8 @@ export default {
         this.$router.push({ path: "/login" });
       }
     },
-    send (data) {
-      this.$emit('sendComment', data);
+    send(data) {
+      this.$emit("sendComment", data);
     }
   }
 };

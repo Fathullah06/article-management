@@ -8,7 +8,15 @@
                 {{article.article.description}}
             </div>
             <div class="panel-footer">
-                <app-three-button-shared @sendComment="send" v-if="threeButtonFlag" :id="id" :likes="likes" :dislikes="dislikes" :comments="comments"></app-three-button-shared>
+                <app-three-button-shared
+                  @sendComment="send"
+                  v-if="threeButtonFlag"
+                  :id="id"
+                  :likes="likes" :dislikes="dislikes"
+                  :isSaved="article.article.isSaved"
+                  :isLiked="article.article.isLiked" :isDisLiked="article.article.isDisLiked"
+                  :comments="comments">
+                </app-three-button-shared>
                 <app-switch-component v-if="switchComponentFlag" :status="article.article.isUnBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
                 <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
             </div>
@@ -17,7 +25,15 @@
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
                     <div class="list-group-item">
                         <p class="nav nav-pills nav-left">{{comment.comment}}</p>
-                        <app-two-button-shared :commentId='comment._id' :id="article.article._id" :comment="true" :commentData="comment.comment"></app-two-button-shared>
+                          <div v-if="commentByUser[i]">
+                          <app-two-button-shared
+                            @deleteComment="deleteComment"
+                            :commentId='comment._id'
+                            :id="article.article._id"
+                            :comment="true"
+                            :commentData="comment.comment">
+                          </app-two-button-shared>
+                        </div>
                     </div>
                 </div>
                 <div v-if="comments.length==0">
@@ -33,19 +49,30 @@
 import ThreeButtonShared from "./ThreeButtonShared.vue";
 import SwitchComponent from "./SwitchComponent.vue";
 import TwoButtonShared from "./TwoButtonShared";
-import { commentOnArticle } from '../services/app.services';
+import { commentOnArticle, deleteComment } from "../services/app.services";
 export default {
   data() {
     return {
       id: this.article.article._id,
       comments: this.article.article.comments,
       likes: this.article.article.like,
-      dislikes: this.article.article.disLike
+      dislikes: this.article.article.disLike,
+      commentByUser: false
     };
   },
-  // created() {
-  //   console.log(this.article.article.disLike);
-  // },
+  created() {
+    console.log(this.article.article.likeByWhom);
+    console.log(
+      this.$cookie.get("username"),
+      "",
+      this.$store.getters.getUsername
+    );
+    const dataOfComment = [...this.article.article.comments];
+    this.commentByUser = dataOfComment.map(data =>
+      data.commentByWhom.includes(this.$store.getters.getUsername)
+    );
+    console.log(this.commentByUser);
+  },
   props: [
     "article",
     "threeButtonFlag",
@@ -83,16 +110,37 @@ export default {
         this.$router.push({ path: "/login" });
       }
     },
-    send (data) {
+    send(data) {
       console.log(data);
       let vm = this;
-      commentOnArticle(
-        data.id,
-        { comment: data.comment },
-      )
+      commentOnArticle(data.id, { comment: data.comment })
         .then(res => {
-          if (res.data.messageCode === 'OK') {
-            vm.comments = res.data.data.comments;
+          if (res.data.messageCode === "OK") {
+            vm.comments = res.data.article.comments;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Something went wrong!!");
+        });
+    },
+    deleteComment(data) {
+      let vm = this;
+      console.log(data);
+      const data1 = {
+        commentId: data.commentId
+      };
+      // debugger;
+      deleteComment(vm.id, data1)
+        .then(res => {
+          // debugger;
+          console.log(res);
+          if (res.data.messageCode === "DELETED") {
+            console.log("Deleted Successfully");
+
+            vm.$snotify.success("Deleted successfully!", "Success");
+            vm.comments = res.data.article.comments;
+            // vm.$router.push({ path: "/" });
           }
         })
         .catch(err => {
