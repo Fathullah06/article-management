@@ -32,7 +32,7 @@ export default {
         comment: this.comment
       });
       // this.comments.push({ comment: this.comment });
-      this.$emit('sendComment', { comment: this.comment, id: this.id });
+      this.$emit('sendComment', { comment: this.comment, id: this.id, edit: false });
       /* commentOnArticle(
         this.id,
         { comment: this.comment },

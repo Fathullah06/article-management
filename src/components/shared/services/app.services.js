@@ -54,6 +54,10 @@ function commentOnArticle(id, data) {
   return axios.post(GLOBAL['COMMENT'] + id, data);
 }
 
+function editComment(id, data) {
+  
+}
+
 function getAllUsers(data) {
   return axios.get(GLOBAL['GET_ALL_USERS'], data);
 }

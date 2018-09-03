@@ -17,7 +17,7 @@
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
                     <div class="list-group-item">
                         <p class="nav nav-pills nav-left">{{comment.comment}}</p>
-                        <app-two-button-shared :id='comment._id' :comment="true" :commentData="comment.comment"></app-two-button-shared>
+                        <app-two-button-shared @sendComment="send" :id='comment._id' :comment="true" :commentData="comment.comment"></app-two-button-shared>
                     </div>
                 </div>
                 <div v-if="comments.length==0">
@@ -86,19 +86,26 @@ export default {
     send (data) {
       console.log(data);
       let vm = this;
-      commentOnArticle(
+      if (!data.edit) {
+        // Create comment api call here 
+        commentOnArticle(
         data.id,
         { comment: data.comment },
       )
         .then(res => {
           if (res.data.messageCode === 'OK') {
             vm.comments = res.data.data.comments;
+          } else if (res.data.messageCode === 'NOT_SAVED') {
+            vm.$snotify.error('Comment not saved', 'Error');
           }
         })
         .catch(err => {
           console.error(err);
           alert("Something went wrong!!");
         });
+      } else {
+        // Edit comment api call here 
+      }
     }
   }
 };

@@ -19,7 +19,7 @@
             </li>
         </ul>
         <div v-if="editFlag">
-            <app-add-comment-form :id="id" :commentFlag="comment" :commentData="commentData"></app-add-comment-form>
+            <app-add-comment-form @sendComment="send" :id="id" :commentFlag="comment" :commentData="commentData"></app-add-comment-form>
         </div>
     </div>
 </template>
@@ -68,6 +68,10 @@ export default {
             alert("Something went wrong!!");
           });
       }
+    },
+    send (data) {
+      data.edit = true;
+      this.$emit('sendComment', data);
     }
   }
 };
