@@ -32,20 +32,8 @@ export default {
         comment: this.comment
       });
       // this.comments.push({ comment: this.comment });
-      this.$emit('sendComment', { comment: this.comment, id: this.id });
+      this.$emit('sendComment', { comment: this.comment, id: this.id, edit: false, commentId: null });
       this.comment = "";
-      /* commentOnArticle(
-        this.id,
-        { comment: this.comment },
-      )
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.error(err);
-          alert("Something went wrong!!");
-        });
-      this.comment = ""; */
     }
   }
 };

@@ -54,6 +54,10 @@ function commentOnArticle(id, data) {
   return axios.post(GLOBAL['COMMENT'] + id, data);
 }
 
+function editComment(id, data) {
+  return axios.patch(GLOBAL['EDIT_COMMENT'] + id, data);
+}
+
 function getAllUsers(data) {
   return axios.get(GLOBAL['GET_ALL_USERS'], data);
 }
@@ -122,5 +126,6 @@ export {
   advancedSearch,
   bookmarkedArticle,
   getBookmarkedArticles,
-  deleteComment
+  deleteComment,
+  editComment
 }

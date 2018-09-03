@@ -27,13 +27,14 @@
                         <p class="nav nav-pills nav-left">{{comment.comment}}</p>
                           <div v-if="commentByUser[i]">
                           <app-two-button-shared
-                            @deleteComment="deleteComment"
+                            @deleteComment="deleteComment" @sendComment="send"
                             :commentId='comment._id'
                             :id="article.article._id"
                             :comment="true"
                             :commentData="comment.comment">
                           </app-two-button-shared>
                         </div>
+                        <!-- <app-two-button-shared @sendComment="send" :commentId='comment._id' :id="article.article._id" :comment="true" :commentData="comment.comment"></app-two-button-shared> -->
                     </div>
                 </div>
                 <div v-if="comments.length==0">
@@ -49,7 +50,12 @@
 import ThreeButtonShared from "./ThreeButtonShared.vue";
 import SwitchComponent from "./SwitchComponent.vue";
 import TwoButtonShared from "./TwoButtonShared";
-import { commentOnArticle, deleteComment } from "../services/app.services";
+import {
+  commentOnArticle,
+  deleteComment,
+  editComment
+} from "../services/app.services";
+// import { commentOnArticle, editComment } from '../services/app.services';
 export default {
   data() {
     return {
@@ -67,11 +73,13 @@ export default {
       "",
       this.$store.getters.getUsername
     );
-    const dataOfComment = [...this.article.article.comments];
-    this.commentByUser = dataOfComment.map(data =>
-      data.commentByWhom.includes(this.$store.getters.getUsername)
-    );
-    console.log(this.commentByUser);
+    if (this.commentsFlag) {
+      const dataOfComment = [...this.article.article.comments];
+      this.commentByUser = dataOfComment.map(data =>
+        data.commentByWhom.includes(this.$store.getters.getUsername)
+      );
+      console.log(this.commentByUser);
+    }
   },
   props: [
     "article",
@@ -113,16 +121,48 @@ export default {
     send(data) {
       console.log(data);
       let vm = this;
-      commentOnArticle(data.id, { comment: data.comment })
-        .then(res => {
-          if (res.data.messageCode === "OK") {
-            vm.comments = res.data.article.comments;
-          }
+      // commentOnArticle(data.id, { comment: data.comment })
+      //   .then(res => {
+      //     if (res.data.messageCode === "OK") {
+      //       vm.comments = res.data.article.comments;
+      //     }
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //     alert("Something went wrong!!");
+      //   });
+      if (!data.edit) {
+        // Create comment api call here
+        commentOnArticle(data.id, { comment: data.comment })
+          .then(res => {
+            if (res.data.messageCode === "OK") {
+              vm.comments = res.data.article.comments;
+            } else if (res.data.messageCode === "NOT_SAVED") {
+              vm.$snotify.error("Comment not saved", "Error");
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Something went wrong!!");
+          });
+      } else {
+        // Edit comment api call here
+        editComment(data.id, {
+          commentId: data.commentId,
+          editedComment: data.comment
         })
-        .catch(err => {
-          console.error(err);
-          alert("Something went wrong!!");
-        });
+          .then(res => {
+            if (res.data.messageCode === "OK") {
+              vm.comments = res.data.article.comments;
+            } else if (res.data.messageCode === "NOT_SAVED") {
+              vm.$snotify.error("Comment not saved", "Error");
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Something went wrong");
+          });
+      }
     },
     deleteComment(data) {
       let vm = this;
