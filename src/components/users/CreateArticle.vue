@@ -124,7 +124,6 @@ export default {
       }
     },
     previewFiles() {
-      debugger;
       console.log(this.$refs.myFiles.files);
       this.file = this.$refs.myFiles.files;
 

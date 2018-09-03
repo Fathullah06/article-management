@@ -26,3 +26,5 @@ GLOBAL['MY_BLOCKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/unApprovedArticl
 GLOBAL['MY_CREATED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/getAllCreatedArticles';
 GLOBAL['ADMIN_BLOCKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/admin/blockedArticle/';
 GLOBAL['SEARCH_ADVANCED'] = GLOBAL['BASE_URL'] + '/article/advancedSearch';
+GLOBAL['BOOKMARKED_ARTICLE'] = GLOBAL['BASE_URL'] + '/trending/postSavedArticle/';
+GLOBAL['GET_BOOKMARKED_ARTICLES'] = GLOBAL['BASE_URL'] + '/trending/savedArticles';

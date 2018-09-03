@@ -25,23 +25,22 @@ import ArticlesListShared from "../shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "../shared/components/AdvancedSearchShared.vue";
 import {
   advancedSearch,
-  createdArticles
+  getBookmarkedArticles
 } from "../shared/services/app.services";
 import axios from "axios";
 export default {
   data() {
     return {
-      articles: [],
+      articles: []
     };
   },
   created() {
     let vm = this;
-    createdArticles()
+    getBookmarkedArticles()
       .then(res => {
         console.log(res);
         if (res.data.messageCode === 'OK') {
-          vm.articles = res.data.articles;
-          
+        vm.articles = res.data.articles;
         } else if (res.data.messageCode === 'NO_ARTICLES') {
           vm.articles = [];
         }

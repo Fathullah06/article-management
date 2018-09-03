@@ -11,39 +11,40 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { commentOnArticle } from "../services/app.services";
 export default {
-  /* eslint-disable */
   data() {
     return {
       comment: ""
     };
   },
-  created(){
-      if(this.commentFlag){
-          this.comment=this.commentData;
-      }
+  created() {
+    if (this.commentFlag) {
+      this.comment = this.commentData;
+    }
   },
-  props:["id","commentFlag","commentData"],
+  props: ["id", "commentFlag", "commentData", "comments"],
   methods: {
     sendComment() {
       console.log({
         id: this.id,
         comment: this.comment
       });
-      //   this.comments.push({ comment: this.comment });
-      //   commentOnArticle(
-      //     this.id,
-      //     { comment: this.comment },
-      //     this.$store.getters.getToken
-      //   )
-      //     .then(res => {
-      //       console.log(res.data);
-      //     })
-      //     .catch(err => {
-      //       console.error(err);
-      //       alert("Something went wrong!!");
-      //     });
-      this.comment = "";
+      // this.comments.push({ comment: this.comment });
+      this.$emit('sendComment', { comment: this.comment, id: this.id });
+      /* commentOnArticle(
+        this.id,
+        { comment: this.comment },
+      )
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Something went wrong!!");
+        });
+      this.comment = ""; */
     }
   }
 };
