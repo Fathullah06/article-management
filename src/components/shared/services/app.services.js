@@ -77,8 +77,17 @@ function createdArticles(data) {
 function articleListBlockArticle(id, data) {
   return axios.patch(GLOBAL['ADMIN_BLOCKED_ARTICLES'] + id, data);
 }
+
 function advancedSearch(searchData) {
-  return axios.post(GLOBAL['SEARCH_ADVANCED'], searchData)
+  return axios.post(GLOBAL['SEARCH_ADVANCED'], searchData);
+}
+
+function bookmarkedArticle(id, isSaved) {
+  return axios.post(GLOBAL['BOOKMARKED_ARTICLE'] + id, isSaved);
+}
+
+function getBookmarkedArticles(data) {
+  return axios.get(GLOBAL['GET_BOOKMARKED_ARTICLES'], data);
 }
 
 export {
@@ -101,5 +110,7 @@ export {
   articlesListBlock,
   createdArticles,
   articleListBlockArticle,
-  advancedSearch
+  advancedSearch,
+  bookmarkedArticle,
+  getBookmarkedArticles
 }

@@ -48,7 +48,7 @@
                 <textarea v-model="comment" cols="30" rows="1"></textarea>
                 <button :disabled="!comment" type="submit" class="btn btn-primary">Submit</button>
             </form> -->
-            <app-add-comment-form :id="id"></app-add-comment-form>
+            <app-add-comment-form :id="id" :comments="comments"></app-add-comment-form>
         </div>
     </div>
 </template>
@@ -58,7 +58,8 @@
 import {
   likeArticle,
   dislikeArticle,
-  commentOnArticle
+  commentOnArticle,
+  bookmarkedArticle
 } from "../services/app.services";
 import AddCommentForm from "./AddCommentForm.vue";
 export default {
@@ -168,6 +169,16 @@ export default {
       ) {
         this.bookmarkFlag = !this.bookmarkFlag;
         console.log(this.bookmarkFlag);
+        bookmarkedArticle(this.id, { isSaved: this.bookmarkFlag })
+          .then(res => {
+            if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
+              console.log(res);
+              console.log(res.data.data.article.isSaved);
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          });
       } else {
         this.$router.push({ path: "/login" });
       }
