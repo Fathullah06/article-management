@@ -17,7 +17,7 @@
                 <div v-if="comments.length!=0" v-for="(comment,i) in comments" :key="i">
                     <div class="list-group-item">
                         <p class="nav nav-pills nav-left">{{comment.comment}}</p>
-                        <app-two-button-shared @sendComment="send" :id='comment._id' :comment="true" :commentData="comment.comment"></app-two-button-shared>
+                        <app-two-button-shared @sendComment="send" :commentId='comment._id' :id="article.article._id" :comment="true" :commentData="comment.comment"></app-two-button-shared>
                     </div>
                 </div>
                 <div v-if="comments.length==0">
@@ -33,7 +33,7 @@
 import ThreeButtonShared from "./ThreeButtonShared.vue";
 import SwitchComponent from "./SwitchComponent.vue";
 import TwoButtonShared from "./TwoButtonShared";
-import { commentOnArticle } from '../services/app.services';
+import { commentOnArticle, editComment } from '../services/app.services';
 export default {
   data() {
     return {
@@ -94,7 +94,7 @@ export default {
       )
         .then(res => {
           if (res.data.messageCode === 'OK') {
-            vm.comments = res.data.data.comments;
+            vm.comments =res.data.article.comments;
           } else if (res.data.messageCode === 'NOT_SAVED') {
             vm.$snotify.error('Comment not saved', 'Error');
           }
@@ -104,7 +104,19 @@ export default {
           alert("Something went wrong!!");
         });
       } else {
-        // Edit comment api call here 
+        // Edit comment api call here
+        editComment(data.id, {commentId: data.commentId, editedComment: data.comment})
+        .then(res => {
+          if (res.data.messageCode === 'OK') {
+            vm.comments = res.data.article.comments;
+          } else if (res.data.messageCode === 'NOT_SAVED') {
+            vm.$snotify.error('Comment not saved', 'Error');
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert('Something went wrong');
+        })
       }
     }
   }
