@@ -108,7 +108,7 @@ export default {
             .then(res => {
               if (res.data.messageCode === "ALREADY_LIKED") {
                 // alert("Already Liked");
-                this.$snotify.info("Already Liked!", "Info");
+                this.$snotify.info("You have already liked this article!");
               } else {
                 this.likeCounter = res.data.likes.like;
                 // console.log(res.data.likes.like);
@@ -147,7 +147,7 @@ export default {
             .then(res => {
               if (res.data.messageCode === "ALREADY_DISLIKED") {
                 // alert("Already Disliked");
-                this.$snotify.info("Already Disliked!", "Info");
+                this.$snotify.info("You have already disliked this article!");
               } else {
                 this.dislikeCounter = res.data.dislikes.disLike;
                 // console.log(res.data.dislikes.disLike);

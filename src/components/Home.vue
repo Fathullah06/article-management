@@ -27,7 +27,7 @@
 /* eslint-disable */
 import ArticlesListShared from "./shared/components/ArticlesListShared.vue";
 import AdvancedSearchShared from "./shared/components/AdvancedSearchShared.vue";
-import { home, globalSearch } from "./shared/services/app.services";
+import { home, globalSearch, homeAuth } from "./shared/services/app.services";
 export default {
   data() {
     return {
@@ -38,7 +38,8 @@ export default {
   },
   created() {
     let vm = this;
-    home()
+    if (vm.$cookie.get('token') !== null) {
+      homeAuth()
       .then(res => {
         if (res.data.messageCode === 'OK') {
           this.articles = res.data.articles;
@@ -52,6 +53,23 @@ export default {
         // console.error(err);
         vm.noArticleFound = true;
       });
+    } 
+    else {
+      home()
+      .then(res => {
+        if (res.data.messageCode === 'OK') {
+          this.articles = res.data.articles;
+          console.log(this.articles);
+        } else if (res.data.messageCode === 'NO_ARTICLES') {
+          vm.noArticleFound = true;
+          vm.articles = [];
+        }
+      })
+      .catch(err => {
+        // console.error(err);
+        vm.noArticleFound = true;
+      });
+    }
   },
   components: {
     appArticlesListShared: ArticlesListShared,

@@ -23,6 +23,13 @@
                         <md-chips v-model="article.tag" md-placeholder="Tags"></md-chips>
                 </div>
                 <div class="form-group">
+                    <label for="fileInput">
+                        File
+                    </label>
+                        <input type="file" id="file" ref="myFiles" class="form-control"
+                          @change="previewFiles">
+                </div>
+                <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
                             <button :disabled="validate || errors.any()" class="btn btn-primary" type="button" @click="saveDraft">
@@ -61,7 +68,8 @@ export default {
     return {
       article,
       radio: "",
-      edit: false
+      edit: false,
+      file: ''
     };
   },
   methods: {
@@ -114,6 +122,12 @@ export default {
             alert('Something went wrong!!');
           });
       }
+    },
+    previewFiles() {
+      debugger;
+      console.log(this.$refs.myFiles.files);
+      this.file = this.$refs.myFiles.files;
+
     }
   },
   computed: {

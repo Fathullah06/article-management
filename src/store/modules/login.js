@@ -1,6 +1,7 @@
 export const state = {
     token: '',
-    role: ''
+    role: '',
+    username: ''
 };
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
     },
     'SET_ROLE' (state, { role }) {
         state.role = role;
+    },
+    'SET_USERNAME' (state, {username}) {
+        state.username = username;
     }
 };
 
@@ -18,6 +22,9 @@ export const actions = {
     },
     setRole ({commit}, role) {
         commit('SET_ROLE', role);
+    },
+    setUsername ({commit}, username) {
+        commit('SET_USERNAME', username);
     }
 };
 
@@ -27,6 +34,9 @@ export const getters = {
     },
     getRole (state) {
         return state.role;
+    },
+    getUsername (state) {
+        return state.username;
     }
 };
 

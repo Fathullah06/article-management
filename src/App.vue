@@ -25,6 +25,7 @@ export default {
       } else {
             this.$store.dispatch('setToken', { token: this.$cookie.get('token') });
             this.$store.dispatch('setRole', {role: this.$cookie.get('role')});
+            this.$store.dispatch('setUsername', {username: this.$cookie.get('username')});
       }
     }
 };

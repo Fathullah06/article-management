@@ -7,8 +7,12 @@ function login(data) {
   return axios.post(GLOBAL['SIGN_IN_URL'], data);
 }
 
-function home(data) {
-  return axios.get(GLOBAL['DISPLAY_ALL_ARTICLES_URL'], data);
+function home() {
+  return axios.get(GLOBAL['DISPLAY_ALL_ARTICLES_URL']);
+}
+
+function homeAuth() {
+  return axios.get(GLOBAL['DISPLAY_ALL_ARTICLES_URL_AUTH']);
 }
 
 function createArticle(data) {
@@ -83,6 +87,7 @@ function advancedSearch(searchData) {
 
 export {
   home,
+  homeAuth,
   login,
   createArticle,
   viewArticle,
