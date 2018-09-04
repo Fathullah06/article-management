@@ -27,7 +27,7 @@
                         File
                     </label>
                         <input type="file" id="file" ref="myFiles" class="form-control"
-                          @change="previewFiles">
+                          @change="previewFiles" accept=".pdf,.doc,.docx,.ods,image/*" >
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -94,7 +94,7 @@ export default {
       let vm = this;
       if (!vm.edit) {
         delete vm.article.articleId;
-        createArticle(data)
+        createArticle(data, vm.file)
           .then(res => {
             if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
               vm.$snotify.success("Saved successfully!", "Success");
@@ -110,7 +110,7 @@ export default {
             console.error(err);
           });
       } else {
-        editArticle(this.$route.params.id, data)
+        editArticle(this.$route.params.id, data, vm.file)
           .then(res => {
             if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
               vm.$snotify.success("Saved successfully!", "Success");
@@ -123,9 +123,16 @@ export default {
           });
       }
     },
-    previewFiles() {
+    previewFiles(event) {
       console.log(this.$refs.myFiles.files);
-      this.file = this.$refs.myFiles.files;
+      console.log(this.$refs.myFiles.files[0].name.split('.')[1]);
+      const fileType = this.$refs.myFiles.files[0].name.split('.')[1];
+      if (fileType === 'ods' || fileType === 'doc' || fileType === 'png' || fileType === 'pdf' || fileType === 'docx' || fileType === 'jpeg' ) {
+        this.file = this.$refs.myFiles.files[0];
+      } else {
+        this.$snotify.info('File format not suppoerted');
+        event.target.value = '';
+      }
 
     }
   },
@@ -134,7 +141,8 @@ export default {
       if (
         this.article.articleName === "" ||
         this.article.description === "" ||
-        this.article.tag.length === 0
+        this.article.tag.length === 0 ||
+        this.file === ''
       ) {
         return true;
       } else {

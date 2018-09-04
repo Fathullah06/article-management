@@ -15,8 +15,16 @@ function homeAuth() {
   return axios.get(GLOBAL['DISPLAY_ALL_ARTICLES_URL_AUTH']);
 }
 
-function createArticle(data) {
-  return axios.post(GLOBAL['CREATE_ARTICLE'], data);
+function createArticle(data, file) {
+  let formData = new FormData();
+  formData.append('articleName', data.articleName);
+  formData.append('description', data.description);
+  formData.append('isDraft', data.isDraft);
+  formData.append('isPublic', data.isPublic);
+  formData.append('tag', data.tag);
+  formData.append('uploads', file);
+
+  return axios.post(GLOBAL['CREATE_ARTICLE'], formData);
 }
 
 function editArticle(id, data) {
