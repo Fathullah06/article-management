@@ -8,7 +8,7 @@
                 {{article.article.description}}
             </div>
             <div class="panel-body abc" v-if="home">
-                <img class="preview" @click="openImage" :src="article.article.fileUploads.path">
+                <img class="preview" :src="article.article.fileUploads.path">
             </div>
             <div class="panel-footer">
                 <app-three-button-shared
@@ -205,9 +205,6 @@ export default {
           console.error(err);
           alert("Something went wrong!!");
         });
-    },
-    openImage(){
-      alert('fdhgjfgd');
     }
   }
 };
