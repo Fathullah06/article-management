@@ -208,6 +208,7 @@ export default {
     },
     send(data) {
       this.$emit("sendComment", data);
+      this.commentFlag = false;
     }
   }
 };

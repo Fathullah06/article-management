@@ -86,10 +86,11 @@ export default {
           });
       }
     },
-    send (data) {
+    send(data) {
       data.edit = true;
       data.commentId = this.commentId;
-      this.$emit('sendComment', data);
+      this.$emit("sendComment", data);
+      this.editFlag = false;
     }
   }
 };

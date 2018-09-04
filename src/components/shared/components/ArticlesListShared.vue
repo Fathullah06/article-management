@@ -137,6 +137,12 @@ export default {
           .then(res => {
             if (res.data.messageCode === "OK") {
               vm.comments = res.data.article.comments;
+              const dataOfComment = [...res.data.article.comments];
+              vm.commentByUser = dataOfComment.map(data =>
+                data.commentByWhom.includes(vm.$store.getters.getUsername)
+              );
+              console.log(vm.commentByUser);
+              vm.$snotify.success("Comment added successfully!", "Success");
             } else if (res.data.messageCode === "NOT_SAVED") {
               vm.$snotify.error("Comment not saved", "Error");
             }
@@ -154,6 +160,7 @@ export default {
           .then(res => {
             if (res.data.messageCode === "OK") {
               vm.comments = res.data.article.comments;
+              vm.$snotify.success("Comment edited successfully!", "Success");
             } else if (res.data.messageCode === "NOT_SAVED") {
               vm.$snotify.error("Comment not saved", "Error");
             }
