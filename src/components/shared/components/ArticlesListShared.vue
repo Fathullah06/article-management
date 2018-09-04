@@ -7,6 +7,9 @@
             <div class="panel-body">
                 {{article.article.description}}
             </div>
+            <div class="panel-body abc">
+                <img class="preview" @click="openImage" :src="article.article.fileUploads.path">
+            </div>
             <div class="panel-footer">
                 <app-three-button-shared
                   @sendComment="send"
@@ -201,6 +204,9 @@ export default {
           console.error(err);
           alert("Something went wrong!!");
         });
+    },
+    openImage(){
+      alert('fdhgjfgd');
     }
   }
 };
@@ -211,7 +217,12 @@ span {
   margin-left: 20px;
   margin-right: 20px;
 }
-abc {
-  padding: -10px;
+img {
+  max-height: 200px;
+  max-width: 200px;
 }
+/* img:hover{
+  max-width: 500px;
+  max-height: 500px;
+} */
 </style>
