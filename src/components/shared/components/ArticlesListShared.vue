@@ -67,18 +67,25 @@ export default {
     };
   },
   created() {
-    console.log(this.article.article.likeByWhom);
-    console.log(
-      this.$cookie.get("username"),
-      "",
-      this.$store.getters.getUsername
-    );
-    if (this.commentsFlag) {
-      const dataOfComment = [...this.article.article.comments];
-      this.commentByUser = dataOfComment.map(data =>
-        data.commentByWhom.includes(this.$store.getters.getUsername)
+    if (
+      this.$cookie.get("token") === "" ||
+      this.$store.getters.getToken === ""
+    ) {
+      this.login = false;
+    } else {
+      console.log(this.article.article.likeByWhom);
+      console.log(
+        this.$cookie.get("username"),
+        "",
+        this.$store.getters.getUsername
       );
-      console.log(this.commentByUser);
+      if (this.commentsFlag) {
+        const dataOfComment = [...this.article.article.comments];
+        this.commentByUser = dataOfComment.map(data =>
+          data.commentByWhom.includes(this.$store.getters.getUsername)
+        );
+        console.log(this.commentByUser);
+      }
     }
   },
   props: [
