@@ -7,7 +7,7 @@
             <div class="panel-body">
                 {{article.article.description}}
             </div>
-            <div class="panel-body abc" v-if="home">
+            <div class="panel-body abc" v-if="home && login">
                 <img class="preview" :src="article.article.fileUploads.path">
             </div>
             <div class="panel-footer">
@@ -71,12 +71,13 @@ export default {
   },
   created() {
     if (
-      this.$cookie.get("token") === "" ||
+      this.$cookie.get("token") === null ||
       this.$store.getters.getToken === ""
     ) {
       this.login = false;
     } else {
       console.log(this.article.article.likeByWhom);
+      this.login = true;
       console.log(
         this.$cookie.get("username"),
         "",
