@@ -7,6 +7,7 @@
             <app-articles-list-shared
                 :article="article"
                 :id='i'
+                :home="true"
                 :threeButtonFlag="true"
                 :switchComponentFlag="false"
                 :commentsFlag="true"

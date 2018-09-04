@@ -7,7 +7,7 @@
             <div class="panel-body">
                 {{article.article.description}}
             </div>
-            <div class="panel-body abc">
+            <div class="panel-body abc" v-if="home">
                 <img class="preview" @click="openImage" :src="article.article.fileUploads.path">
             </div>
             <div class="panel-footer">
@@ -99,7 +99,8 @@ export default {
     "switchLabel",
     "commentsFlag",
     "articleList",
-    "isBlocked"
+    "isBlocked",
+    "home"
   ],
   components: {
     appThreeButtonShared: ThreeButtonShared,
