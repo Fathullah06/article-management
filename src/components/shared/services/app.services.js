@@ -27,7 +27,18 @@ function createArticle(data, file) {
   return axios.post(GLOBAL['CREATE_ARTICLE'], formData);
 }
 
-function editArticle(id, data) {
+function editArticle(id, data, file) {
+  debugger;
+  let formData = new FormData();
+  formData.append('articleName', data.articleName);
+  formData.append('description', data.description);
+  formData.append('isDraft', data.isDraft);
+  formData.append('isPublic', data.isPublic);
+  formData.append('tag', data.tag);
+  if (file !== '') {
+    formData.append('uploads', file);
+  }
+
   return axios.put(GLOBAL['EDIT_ARTICLE'] + id, data);
 }
 

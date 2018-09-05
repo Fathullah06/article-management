@@ -27,7 +27,12 @@
                         File
                     </label>
                         <input type="file" id="file" ref="myFiles" class="form-control"
-                          @change="previewFiles" accept=".pdf,.doc,.docx,.ods,image/*" >
+                          @change="previewFiles" accept=".pdf,.doc,.docx,.ods,image/*">
+                    <div v-if="fileDetails.length != 0" class="form-group">
+                      <span class="form-control col-md-4">
+                        File Name: {{ fileDetails[0].name }}
+                      </span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -69,7 +74,8 @@ export default {
       article,
       radio: "",
       edit: false,
-      file: ''
+      file: '',
+      fileDetails: []
     };
   },
   methods: {
@@ -96,6 +102,7 @@ export default {
         delete vm.article.articleId;
         createArticle(data, vm.file)
           .then(res => {
+            debugger;
             if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
               vm.$snotify.success("Saved successfully!", "Success");
               vm.$router.push({ path: "/" });
@@ -129,6 +136,9 @@ export default {
       const fileType = this.$refs.myFiles.files[0].name.split('.')[1];
       if (fileType === 'ods' || fileType === 'doc' || fileType === 'png' || fileType === 'pdf' || fileType === 'docx' || fileType === 'jpeg' ) {
         this.file = this.$refs.myFiles.files[0];
+        this.fileDetails = [];
+        let ob = { name: this.$refs.myFiles.files[0].name };
+        this.fileDetails.push(ob);
       } else {
         this.$snotify.info('File format not suppoerted');
         event.target.value = '';
@@ -142,7 +152,7 @@ export default {
         this.article.articleName === "" ||
         this.article.description === "" ||
         this.article.tag.length === 0 ||
-        this.file === ''
+        this.fileDetails.length === 0
       ) {
         return true;
       } else {
@@ -156,8 +166,17 @@ export default {
       vm.edit = true;
       getArticleById(this.$route.params.id)
         .then(res => {
+          console.log(vm.$refs['myFiles'].value);
           if (res.data.messageCode === "OK") {
             vm.article = res.data.article;
+            vm.fileDetails = []; 
+            let ob = {}
+            if (res.data.article.fileUploads) {
+              ob = { name: res.data.article.fileUploads.originalName};
+            } else {
+              ob = { name: 'No file'};
+            }
+            vm.fileDetails.push(ob);
             if (res.data.article.isPublic) {
               vm.radio = "public";
             } else if (!res.data.article.isPublic) {
