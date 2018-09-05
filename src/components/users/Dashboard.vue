@@ -86,6 +86,12 @@ export default {
       .catch(err => {
           console.error(err);
           alert('Something went wrong!!');
+          /* vm.$snotify.confirm('Something went wrong!', 'Error', {
+                pauseOnHover: true,
+                buttons: [
+                    {text: 'Reload', action: () => vm.$router.push({path: '/login'}), bold: true},
+                ]
+            }); */
       });
   }
 };

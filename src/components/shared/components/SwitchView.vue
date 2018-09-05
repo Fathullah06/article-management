@@ -32,6 +32,8 @@ export default {
             }
             else if(res.data.messageCode === 'BLOCKED_SUCCESSFULLY' && !isOn){
               vm.$snotify.error('Blocked successfully!', 'Success');
+            } else if (res.data.messageCode === 'NOT_BLOCKED') {
+               vm.$snotify.error('Article not blocked!', 'Error');
             }
           })
           .catch(err => {
@@ -45,6 +47,8 @@ export default {
             }
             else if(res.data.messageCode === 'OK' && !isOn){
               vm.$snotify.error('Blocked successfully!', 'Success');
+            } else if (res.data.messageCode === 'NOT_BLOCKED') {
+               vm.$snotify.error('User not blocked!', 'Error');
             }
           })
           .catch(err => {
