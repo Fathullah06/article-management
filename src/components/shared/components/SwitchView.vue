@@ -27,8 +27,11 @@ export default {
       if (vm.articleList) {
         articleListBlockArticle(vm.id, { isUnBlocked: isOn })
           .then(res => {
-            if (res.data.messageCode === 'OK') {
-              vm.$snotify.success('Blocked successfully!', 'Success');
+            if (res.data.messageCode === 'BLOCKED_SUCCESSFULLY' && isOn) {
+              vm.$snotify.success('Unblocked successfully!', 'Success');
+            }
+            else if(res.data.messageCode === 'BLOCKED_SUCCESSFULLY' && !isOn){
+              vm.$snotify.error('Blocked successfully!', 'Success');
             }
           })
           .catch(err => {
@@ -37,8 +40,11 @@ export default {
       } else {
         userListBlock(vm.id, { status: isOn })
           .then(res => {
-            if (res.data.messageCode === 'OK') {
-              vm.$snotify.success('Blocked successfully!', 'Success');
+            if (res.data.messageCode === 'OK' && isOn) {
+              vm.$snotify.success('Unblocked successfully!', 'Success');
+            }
+            else if(res.data.messageCode === 'OK' && !isOn){
+              vm.$snotify.error('Blocked successfully!', 'Success');
             }
           })
           .catch(err => {
