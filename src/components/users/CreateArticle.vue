@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     saveDraft() {
-      console.log("Save and make api call for draft");
       this.article.isPublic = false;
       this.article.isDraft = true;
       this.publishArticle(this.article);
@@ -91,8 +90,6 @@ export default {
       } else {
         this.article.isPublic = false;
       }
-      console.log(this.article);
-      console.log(this.radio);
       this.article.isDraft = false;
       this.publishArticle(this.article);
     },
@@ -131,8 +128,6 @@ export default {
       }
     },
     previewFiles(event) {
-      console.log(this.$refs.myFiles.files);
-      console.log(this.$refs.myFiles.files[0].name.split('.')[1]);
       const fileType = this.$refs.myFiles.files[0].name.split('.')[1];
       if (fileType === 'ods' || fileType === 'doc' || fileType === 'png' || fileType === 'pdf' || fileType === 'docx' || fileType === 'jpeg' ) {
         this.file = this.$refs.myFiles.files[0];
@@ -166,7 +161,6 @@ export default {
       vm.edit = true;
       getArticleById(this.$route.params.id)
         .then(res => {
-          console.log(vm.$refs['myFiles'].value);
           if (res.data.messageCode === "OK") {
             vm.article = res.data.article;
             vm.fileDetails = []; 

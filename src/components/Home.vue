@@ -45,7 +45,6 @@ export default {
         .then(res => {
           if (res.data.messageCode === "OK") {
             this.articles = res.data.articles;
-            console.log(this.articles);
           } else if (res.data.messageCode === "NO_ARTICLES") {
             vm.noArticleFound = true;
             vm.articles = [];
@@ -60,7 +59,6 @@ export default {
         .then(res => {
           if (res.data.messageCode === "OK") {
             this.articles = res.data.articles;
-            console.log(this.articles);
           } else if (res.data.messageCode === "NO_ARTICLES") {
             vm.noArticleFound = true;
             vm.articles = [];

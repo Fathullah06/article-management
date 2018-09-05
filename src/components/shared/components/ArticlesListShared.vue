@@ -77,21 +77,13 @@ export default {
     ) {
       this.login = false;
     } else {
-      console.log(this.article.article.likeByWhom);
       this.login = true;
-      console.log(
-        this.$cookie.get("username"),
-        "",
-        this.$store.getters.getUsername
-      );
       if (this.commentsFlag) {
         const dataOfComment = [...this.article.article.comments];
         this.commentByUser = dataOfComment.map(data =>
           data.commentByWhom.includes(this.$store.getters.getUsername)
         );
-        console.log(this.commentByUser);
       }
-      console.log(this.article.article.createdBy);
       if(this.article.article.createdBy === this.$store.getters.getUsername){
         this.twoButtonFlagEdit=true;
       }
@@ -136,7 +128,6 @@ export default {
       }
     },
     send(data) {
-      console.log(data);
       let vm = this;
       // commentOnArticle(data.id, { comment: data.comment })
       //   .then(res => {
@@ -158,7 +149,6 @@ export default {
               vm.commentByUser = dataOfComment.map(data =>
                 data.commentByWhom.includes(vm.$store.getters.getUsername)
               );
-              console.log(vm.commentByUser);
               vm.$snotify.success("Comment added successfully!", "Success");
             } else if (res.data.messageCode === "NOT_SAVED") {
               vm.$snotify.error("Comment not saved", "Error");
@@ -190,17 +180,13 @@ export default {
     },
     deleteComment(data) {
       let vm = this;
-      console.log(data);
       const data1 = {
         commentId: data.commentId
       };
       // debugger;
       deleteComment(vm.id, data1)
         .then(res => {
-          // debugger;
-          console.log(res);
           if (res.data.messageCode === "DELETED") {
-            console.log("Deleted Successfully");
 
             vm.$snotify.success("Deleted successfully!", "Success");
             vm.comments = res.data.article.comments;

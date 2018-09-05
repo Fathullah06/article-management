@@ -43,24 +43,19 @@ export default {
     edit() {
       if (this.comment) {
         this.editFlag = !this.editFlag;
-        console.log("Edit Comment: " + this.id);
       } else {
-        console.log("Edit Article: " + this.id);
         this.$router.push({ path: "/editArticle/" + this.id });
       }
     },
     delete1() {
       let vm = this;
       if (vm.comment) {
-        console.log("Delete Comment: " + vm.commentId);
         // const data = {
         //   commentId: vm.commentId
         // };
         // deleteComment(vm.id, data)
         //   .then(res => {
         //     if (res.data.messageCode === "DELETED") {
-        //       console.log("Deleted Successfully");
-        //       console.log(res);
         //       vm.$snotify.success("Deleted successfully!", "Success");
         //       // vm.$router.push({ path: "/" });
         this.$emit("deleteComment", { id: this.id, commentId: this.commentId });
@@ -71,11 +66,9 @@ export default {
         //   alert("Something went wrong!!");
         // });
       } else {
-        console.log("Delete Article: " + this.id);
         deleteArticle(this.id)
           .then(res => {
             if (res.data.messageCode === "DELETED") {
-              console.log("Deleted Successfully");
               vm.$snotify.success("Deleted successfully!", "Success");
               vm.$router.push({ path: "/dashboard" });
             }

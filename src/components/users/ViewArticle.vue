@@ -39,10 +39,8 @@ export default {
     // if (vm.$route.query.isBlocked) {
     //   vm.draftFlag = false;
     // }
-    console.log("Make api call for view article using route param id");
     viewArticle(this.$route.params.id)
       .then(res => {
-        console.log(res);
         if (res.data.messageCode === "OK") {
           vm.displayArticle = true;
           vm.article.article = res.data.article;
