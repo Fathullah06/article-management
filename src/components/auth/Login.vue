@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       username: "",
-      password: "",
+      password: ""
     };
   },
   methods: {
@@ -38,33 +38,40 @@ export default {
       let vm = this;
       login({ userName: this.username, password: this.password })
         .then(res => {
-          if (res.data.messageCode === 'LOGGED_IN_SUCCESSFULLY') {
-            vm.$store.dispatch('setToken', { token: res.data.data.token });
-            vm.$store.dispatch('setRole', {role: res.data.data.role});
-            vm.$store.dispatch('setUsername', {username: res.data.data.userName});
-            vm.$cookie.set('token', res.data.data.token);
-            vm.$cookie.set('role', res.data.data.role);
-            vm.$cookie.set('username', res.data.data.userName);
-            vm.$snotify.success('Logged in successfully!', 'Success');
+          console.log(res);
+          if (res.data.messageCode === "LOGGED_IN_SUCCESSFULLY") {
+            vm.$store.dispatch("setToken", { token: res.data.data.token });
+            vm.$store.dispatch("setRole", { role: res.data.data.role });
+            vm.$store.dispatch("setUsername", {
+              username: res.data.data.userName
+            });
+            vm.$cookie.set("token", res.data.data.token);
+            vm.$cookie.set("role", res.data.data.role);
+            vm.$cookie.set("username", res.data.data.userName);
+            vm.$snotify.success("Logged in successfully!", "Success");
             if (vm.$route.query.redirectUrl) {
-                vm.$router.push({ path: vm.$route.query.redirectUrl });
+              vm.$router.push({ path: vm.$route.query.redirectUrl });
             } else {
-                vm.$router.push({ path: "/dashboard" });
+              vm.$router.push({ path: "/dashboard" });
             }
-          } else if (res.data.messageCode === 'AUTHENTICATION_FAILED') {
-              vm.$snotify.error('Username or Password invalid!', 'Error');
+          } else if (res.data.messageCode === "AUTHENTICATION_FAILED") {
+            vm.$snotify.error("Username or Password invalid!", "Error");
+          }
+          else if(res.data.messageCode === "YOU_ARE_BLOCKED"){
+              vm.$snotify.error("You are blocked user!", "Error");
+              vm.$router.push({ path: "/" });
           }
         })
         .catch(err => {
           console.error(err);
-          alert('Something went wrong!!');
+          alert("Something went wrong!!");
         });
     }
   },
-  created () {
-      if (this.$cookie.get('token') !== null) {
-          this.$router.push('/');
-      }
+  created() {
+    if (this.$cookie.get("token") !== null) {
+      this.$router.push("/");
+    }
   }
 };
 </script>
