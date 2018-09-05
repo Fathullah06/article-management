@@ -7,7 +7,7 @@
             <app-articles-list-shared
                 :article="article"
                 :id='i'
-                :home="true"
+                :home="home"
                 :threeButtonFlag="true"
                 :switchComponentFlag="false"
                 :commentsFlag="true"
@@ -35,41 +35,41 @@ export default {
       articles: [],
       homeErrors: [],
       noArticleFound: false,
+      home: true
     };
   },
   created() {
     let vm = this;
-    if (vm.$cookie.get('token') !== null) {
+    if (vm.$cookie.get("token") !== null) {
       homeAuth()
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          this.articles = res.data.articles;
-          console.log(this.articles);
-        } else if (res.data.messageCode === 'NO_ARTICLES') {
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            this.articles = res.data.articles;
+            console.log(this.articles);
+          } else if (res.data.messageCode === "NO_ARTICLES") {
+            vm.noArticleFound = true;
+            vm.articles = [];
+          }
+        })
+        .catch(err => {
+          // console.error(err);
           vm.noArticleFound = true;
-          vm.articles = [];
-        }
-      })
-      .catch(err => {
-        // console.error(err);
-        vm.noArticleFound = true;
-      });
-    } 
-    else {
+        });
+    } else {
       home()
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          this.articles = res.data.articles;
-          console.log(this.articles);
-        } else if (res.data.messageCode === 'NO_ARTICLES') {
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            this.articles = res.data.articles;
+            console.log(this.articles);
+          } else if (res.data.messageCode === "NO_ARTICLES") {
+            vm.noArticleFound = true;
+            vm.articles = [];
+          }
+        })
+        .catch(err => {
+          // console.error(err);
           vm.noArticleFound = true;
-          vm.articles = [];
-        }
-      })
-      .catch(err => {
-        // console.error(err);
-        vm.noArticleFound = true;
-      });
+        });
     }
   },
   components: {
@@ -81,18 +81,19 @@ export default {
       let payload = { searchText: data };
       let vm = this;
       globalSearch(payload)
-      .then(res => {
-        if (res.data.messageCode === 'OK') {
-          vm.articles = res.data.articles;
-        } else if (res.data.messageCode === 'NO_ARTICLES') {
-          vm.noArticleFound = true;
-          vm.articles = [];
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Something went wrong!!');
-      })
+        .then(res => {
+          if (res.data.messageCode === "OK") {
+            vm.home = false;
+            vm.articles = res.data.articles;
+          } else if (res.data.messageCode === "NO_ARTICLES") {
+            vm.noArticleFound = true;
+            vm.articles = [];
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Something went wrong!!");
+        });
     }
   }
 };

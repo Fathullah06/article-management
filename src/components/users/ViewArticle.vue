@@ -6,6 +6,7 @@
                 :id="article.article._id"
                 :threeButtonFlag="draftFlag"
                 :twoButtonFlag="true"
+                :home="true"
                 :switchComponentFlag="false"
                 :commentsFlag="draftFlag"
                 :switchLabel="'Enable / Disable Article'">
@@ -41,6 +42,7 @@ export default {
     console.log("Make api call for view article using route param id");
     viewArticle(this.$route.params.id)
       .then(res => {
+        console.log(res);
         if (res.data.messageCode === "OK") {
           vm.displayArticle = true;
           vm.article.article = res.data.article;
