@@ -21,7 +21,7 @@
                   :comments="comments">
                 </app-three-button-shared>
                 <app-switch-component v-if="switchComponentFlag" :status="article.article.isUnBlocked" :id="id" :articleList="articleList" :name="switchLabel"></app-switch-component>
-                <app-two-button-shared v-if="twoButtonFlag" :id="id"></app-two-button-shared>
+                <app-two-button-shared v-if="twoButtonFlag && twoButtonFlagEdit" :id="id"></app-two-button-shared>
             </div>
             <div v-if="commentsFlag" class="panel-footer">
                 <p><b>Comments:</b></p>
@@ -66,7 +66,8 @@ export default {
       comments: this.article.article.comments,
       likes: this.article.article.like,
       dislikes: this.article.article.disLike,
-      commentByUser: false
+      commentByUser: false,
+      twoButtonFlagEdit:false
     };
   },
   created() {
@@ -89,6 +90,10 @@ export default {
           data.commentByWhom.includes(this.$store.getters.getUsername)
         );
         console.log(this.commentByUser);
+      }
+      console.log(this.article.article.createdBy);
+      if(this.article.article.createdBy === this.$store.getters.getUsername){
+        this.twoButtonFlagEdit=true;
       }
     }
   },
