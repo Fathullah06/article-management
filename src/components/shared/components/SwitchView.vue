@@ -23,24 +23,28 @@ export default {
   methods: {
     switched(isOn) {
       this.$emit("input", isOn);
-      if (this.articleList) {
-        articleListBlockArticle(this.id, { isUnBlocked: isOn })
+      let vm = this;
+      if (vm.articleList) {
+        articleListBlockArticle(vm.id, { isUnBlocked: isOn })
           .then(res => {
-            console.log(res);
+            if (res.data.messageCode === 'OK') {
+              vm.$snotify.success('Blocked successfully!', 'Success');
+            }
           })
           .catch(err => {
             console.error(err);
           });
       } else {
-        userListBlock(this.id, { status: isOn })
+        userListBlock(vm.id, { status: isOn })
           .then(res => {
-            console.log(res);
+            if (res.data.messageCode === 'OK') {
+              vm.$snotify.success('Blocked successfully!', 'Success');
+            }
           })
           .catch(err => {
             console.error(err);
           });
       }
-      // console.log({ id: this.id, block: this.value });
     }
   }
 };

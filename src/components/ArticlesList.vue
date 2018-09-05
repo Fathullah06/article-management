@@ -43,7 +43,6 @@ export default {
       .then(res => {
         if (res.data.messageCode === "OK") {
           vm.articles = res.data.article;
-          console.log(res.data.article);
         } else if (res.data.messageCode === "NO_ARTICLES") {
           vm.articles = [];
         }

@@ -38,7 +38,6 @@ export default {
     let vm = this;
     getBookmarkedArticles()
       .then(res => {
-        console.log(res);
         if (res.data.messageCode === 'OK') {
         vm.articles = res.data.articles;
         } else if (res.data.messageCode === 'NO_ARTICLES') {

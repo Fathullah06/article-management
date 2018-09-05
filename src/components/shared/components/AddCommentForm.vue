@@ -27,10 +27,6 @@ export default {
   props: ["id", "commentFlag", "commentData", "comments"],
   methods: {
     sendComment() {
-      console.log({
-        id: this.id,
-        comment: this.comment
-      });
       // this.comments.push({ comment: this.comment });
       this.$emit('sendComment', { comment: this.comment, id: this.id, edit: false, commentId: null });
       this.comment = "";

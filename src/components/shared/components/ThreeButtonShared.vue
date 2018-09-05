@@ -97,7 +97,6 @@ export default {
     } else {
       this.likeFlag = this.isLiked;
       this.dislikeFlag = this.isDisLiked;
-      // console.log(this.isLiked);
       this.bookmarkFlag = this.isSaved;
     }
   },
@@ -111,13 +110,6 @@ export default {
           this.$snotify.info("You have already liked this article!");
         } else {
           this.likeFlag = true;
-          // this.dislikeFlag = false;
-          // console.log({
-          //   id: this.id,
-          //   like: this.likeFlag,
-          //   dislike: this.dislikeFlag
-          // });
-          // return this.counter++;
           likeArticle(this.id, this.$store.getters.getToken)
             .then(res => {
               if (res.data.messageCode === "ALREADY_LIKED") {
@@ -125,7 +117,6 @@ export default {
                 this.$snotify.info("You have already liked this article!");
               } else {
                 this.likeCounter = res.data.likes.like;
-                // console.log(res.data.likes.like);
                 return this.likeCounter;
               }
             })
@@ -134,7 +125,6 @@ export default {
             });
         }
       } else {
-        console.log(this.$route.fullPath);
         this.$router.push({
           path: "/login",
           query: { redirectUrl: this.$route.fullPath }
@@ -150,21 +140,12 @@ export default {
           this.$snotify.info("You have already disliked this article!");
         } else {
           this.dislikeFlag = true;
-          // this.likeFlag = false;
-          // console.log({
-          //   id: this.id,
-          //   like: this.likeFlag,
-          //   dislike: this.dislikeFlag
-          // });
-          // return this.counter--;
           dislikeArticle(this.id, this.$store.getters.getToken)
             .then(res => {
               if (res.data.messageCode === "ALREADY_DISLIKED") {
-                // alert("Already Disliked");
                 this.$snotify.info("You have already disliked this article!");
               } else {
                 this.dislikeCounter = res.data.dislikes.disLike;
-                // console.log(res.data.dislikes.disLike);
               }
             })
             .catch(err => {
@@ -172,28 +153,35 @@ export default {
             });
         }
       } else {
-        this.$router.push({ path: "/login" });
+        this.$router.push({
+          path: "/login",
+          query: { redirectUrl: this.$route.fullPath }
+        });
       }
     },
     bookmarkClick() {
+      let vm = this;
       if (
-        this.$cookie.get("token") !== null ||
-        this.$store.getters.getToken !== ""
+        vm.$cookie.get("token") !== null ||
+        vm.$store.getters.getToken !== ""
       ) {
-        this.bookmarkFlag = !this.bookmarkFlag;
-        console.log(this.bookmarkFlag);
-        bookmarkedArticle(this.id, { isSaved: this.bookmarkFlag })
+        vm.bookmarkFlag = !vm.bookmarkFlag;
+        bookmarkedArticle(vm.id, { isSaved: vm.bookmarkFlag })
           .then(res => {
-            if (res.data.messageCode === "SAVED_SUCCESSFULLY") {
-              console.log(res);
-              console.log(res.data.data.article.isSaved);
+            if (res.data.messageCode === "SAVED_SUCCESSFULLY" && vm.bookmarkFlag === true) {
+              vm.$snotify.success('Bookmark saved!', 'Success');
+            } else if (res.data.messageCode === "SAVED_SUCCESSFULLY" && vm.bookmarkFlag === false) {
+              vm.$snotify.error('Bookmark removed!', 'Success');
             }
           })
           .catch(err => {
             console.error(err);
           });
       } else {
-        this.$router.push({ path: "/login" });
+        vm.$router.push({
+          path: "/login",
+          query: { redirectUrl: this.$route.fullPath }
+        });
       }
     },
     commentClick() {
@@ -203,7 +191,10 @@ export default {
       ) {
         this.commentFlag = !this.commentFlag;
       } else {
-        this.$router.push({ path: "/login" });
+        this.$router.push({
+          path: "/login",
+          query: { redirectUrl: this.$route.fullPath }
+        });
       }
     },
     send(data) {

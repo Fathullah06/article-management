@@ -41,7 +41,6 @@ export default {
     let vm = this;
     createdArticles()
       .then(res => {
-        console.log(res);
         if (res.data.messageCode === 'OK') {
           vm.articles = res.data.articles;
           

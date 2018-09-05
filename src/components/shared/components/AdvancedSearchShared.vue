@@ -39,12 +39,6 @@ export default {
     submit(event) {
       if (this.$cookie.get('token') !== null) {
           if (this.advancedSearchflag) {
-          console.log({
-            searchText: this.searchText,
-            articleName: this.byArticleTitle,
-            description: this.byDescription,
-            tag: this.byTags
-          });
           this.$emit('clicked', {
             searchText: this.searchText,
             articleName: this.byArticleTitle,
@@ -52,7 +46,6 @@ export default {
             tag: this.byTags
           });
         } else {
-          console.log('searchText : ' + this.searchText);
           this.$emit('clicked', this.searchText);
         } 
       } else {

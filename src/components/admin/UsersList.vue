@@ -23,7 +23,6 @@ export default {
     getAllUsers()
       .then(res => {
         this.adminUsers=res.data.adminUsers;
-        // console.log(res.data.adminUsers);
       })
       .catch(err => {
         console.error(err);

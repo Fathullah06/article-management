@@ -7,7 +7,7 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <router-link v-if="loggedIn" to="/dashboard" activeClass="active" tag="li"><a>Dashboard</a></router-link> {{loggedIn}}
+                    <router-link v-if="loggedIn" to="/dashboard" activeClass="active" tag="li"><a>Dashboard</a></router-link>
                     <router-link v-if="loggedIn" to="/createArticle" activeClass="active" tag="li"><a>Create</a></router-link>
                     <router-link v-if="loggedIn" to="/createdArticles" activeClass="active" tag="li"><a>Articles</a></router-link>
                     <router-link v-if="loggedIn" to="/draftArticles" activeClass="active" tag="li"><a>Drafts</a></router-link>
