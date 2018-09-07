@@ -1,5 +1,7 @@
-import Vue from 'vue';
 import Login from '../../../src/components/auth/Login.vue';
+import { login } from '../../../src/components/shared/services/app.services';
+
+const defaultData = Login.data();
 
 describe('Login.vue', () => {
     it('Has a created hook', () => {
@@ -10,30 +12,31 @@ describe('Login.vue', () => {
         expect(typeof Login.data).to.equal('function');
     });
 
-    it('Should have initial message', () => {
-        const defaultData = Login.data();
+    it('Has username and password set to blank string', () => {
+        expect(typeof defaultData.username).to.equal('string');
         expect(defaultData.username).to.equal('');
+        expect(typeof defaultData.password).to.equal('string');
         expect(defaultData.password).to.equal('');
     });
 
-    it('Submit username and password to server on click', () => {
-        // build component
-        const Constructor = Vue.extend(Login);
-        const LoginComponent = new Constructor().$mount();
+    it('Has methods object', () => {
+        expect(typeof Login.methods).to.equal('object');
+    });
 
-        // set input value
-        LoginComponent.username = 'fathullah.mohammedi';
-        LoginComponent.password = 'fathullah.mohammedi';
-
-        // simulate click event
-        console.log(LoginComponent.$el);
-        const button = LoginComponent.$el.querySelector('#loginButton');
-        const clickEvent = new window.Event('click');
-        button.dispatchEvent(clickEvent);
-        LoginComponent._watcher.run();
-
-        // assert list contains new item
-        expect(LoginComponent.$el.textContent).to.contain('fathullah.mohammedi');
-        expect(LoginComponent.username).to.contain('fathullah.mohammedi');
-      });
+    it('Has submit function to login user', (done) => {
+        const methods = Login.methods;
+        expect(typeof methods.submit).to.equal('function');
+        defaultData.username = 'fathullah.mohammedi';
+        defaultData.password = 'rsPL123#';
+        login({ userName: defaultData.username, password: defaultData.password })
+        .then(res => {
+            if (res.data.messageCode === 'LOGGED_IN_SUCCESSFULLY') {
+                console.log('Logged in');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
+        done();
+    });
 });
