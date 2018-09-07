@@ -2,6 +2,19 @@ import Home from '../../../src/components/Home.vue';
 import { home } from '../../../src/components/shared/services/app.services';
 
 const defaultData = Home.data();
+const article = {
+  articleName: 'Article Title 1',
+  comments: [{ _id: '5b8e64ae75e37e32647ad149', comment: 'test', commentByWhom: 'dhruti.upadhyay' }],
+  description: 'Article Description 1',
+  disLike: 1,
+  dislikeByWhom: ['fathullah.mohammedi'],
+  isDraft: false,
+  isPublic: true,
+  isSaved: true,
+  like: 3,
+  likeByWhom: ['dhruti.upadhyay', 'fathullah.mohammedi'],
+  tag: ['Article', 'Description']
+};
 
 describe('Home.vue', () => {
   it('has a data hook', () => {
@@ -36,8 +49,9 @@ describe('Home.vue', () => {
       home()
         .then(res => {
           if (res.data.messageCode === 'OK') {
-            defaultData.articles = res.data.articles;
-            expect(defaultData.articles).to.equal(res.data.articles);
+            // defaultData.articles = res.data.articles;
+            defaultData.articles = article;
+            expect(defaultData.articles.article).to.equal(res.data.articles.article);
             console.log('data get');
           } else if (res.data.messageCode === 'NO_ARTICLES') {
             defaultData.noArticleFound = [];
@@ -49,6 +63,35 @@ describe('Home.vue', () => {
           console.error(err);
           console.log('err');
         });
+    }else{
+      console.log('User is logged in');
+    }
+    done();
+  });
+
+  it('has a created lifecycle hook if user is logged in', done => {
+    expect(typeof Home.created).to.equal('function');
+    // const created = Home.created;
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRocnV0aS51cGFkaHlheSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTUzNjI5Njc3OSwiZXhwIjoxNTM2MzE0Nzc5fQ.cyARhcr_SJJxvr00WbW5Ps_fY0Ys_M-zyC_oHBgASHo';
+    if (token !== null) {
+      home()
+        .then(res => {
+          if (res.data.messageCode === 'OK') {
+            defaultData.articles = article;
+            expect(defaultData.articles.article).to.equal(res.data.articles.article);
+            console.log('data get');
+          } else if (res.data.messageCode === 'NO_ARTICLES') {
+            defaultData.noArticleFound = [];
+            defaultData.articles = [];
+            console.log('no data');
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          console.log('err');
+        });
+    }else{
+      console.log('User is not logged in');
     }
     done();
   });
