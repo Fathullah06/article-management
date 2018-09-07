@@ -17,7 +17,7 @@
                 <input type="password" class="form-control" name="password" data-vv-validate-on="blur" v-model="password" v-validate="'required|min:6'" >
                 <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
                 </div>
-                <button class="btn bg-dark" :disabled="errors.any() || username.lenght == 0 || password.length == 0" type="button" @click="submit" >Login</button>
+                <button class="btn bg-dark" id='loginButton' :disabled="errors.any() || username.lenght == 0 || password.length == 0" type="button" @click="submit" >Login</button>
             </form>
         </div>
     </div>
